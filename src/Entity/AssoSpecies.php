@@ -19,11 +19,13 @@ class AssoSpecies
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="assoSpecies")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $user;
 
     /**
      * @ORM\ManyToOne(targetEntity=Species::class, inversedBy="assoSpecies")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $species;
 

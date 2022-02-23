@@ -124,6 +124,7 @@ class User
         $this->assoSpecies = new ArrayCollection();
     }
 
+
     public function getId(): ?int
     {
         return $this->id;
@@ -386,4 +387,5 @@ class User
 
         return $this;
     }
+
 }
