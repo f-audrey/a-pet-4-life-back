@@ -40,7 +40,7 @@ class User
     private $lastname;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $siret;
 
@@ -60,17 +60,7 @@ class User
     private $adress;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $zip_code;
-
-    /**
      * @ORM\Column(type="string", length=180)
-     */
-    private $city;
-
-    /**
-     * @ORM\Column(type="string", length=180, nullable=true)
      */
     private $department;
 
@@ -80,7 +70,7 @@ class User
     private $region;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $phone_number;
 
@@ -178,12 +168,12 @@ class User
         return $this;
     }
 
-    public function getSiret(): ?int
+    public function getSiret(): ?string
     {
         return $this->siret;
     }
 
-    public function setSiret(?int $siret): self
+    public function setSiret(?string $siret): self
     {
         $this->siret = $siret;
 
@@ -226,30 +216,6 @@ class User
         return $this;
     }
 
-    public function getZipCode(): ?int
-    {
-        return $this->zip_code;
-    }
-
-    public function setZipCode(?int $zip_code): self
-    {
-        $this->zip_code = $zip_code;
-
-        return $this;
-    }
-
-    public function getCity(): ?string
-    {
-        return $this->city;
-    }
-
-    public function setCity(string $city): self
-    {
-        $this->city = $city;
-
-        return $this;
-    }
-
     public function getDepartment(): ?string
     {
         return $this->department;
@@ -274,12 +240,12 @@ class User
         return $this;
     }
 
-    public function getPhoneNumber(): ?int
+    public function getPhoneNumber(): ?string
     {
         return $this->phone_number;
     }
 
-    public function setPhoneNumber(?int $phone_number): self
+    public function setPhoneNumber(?string $phone_number): self
     {
         $this->phone_number = $phone_number;
 
