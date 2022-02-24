@@ -119,9 +119,15 @@ class User
      */
     private $assoSpecies;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Animal::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $animals;
+
     public function __construct()
     {
         $this->assoSpecies = new ArrayCollection();
+        $this->animals = new ArrayCollection();
     }
 
 
@@ -382,6 +388,36 @@ class User
             // set the owning side to null (unless already changed)
             if ($assoSpecies->getUser() === $this) {
                 $assoSpecies->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Animal>
+     */
+    public function getAnimals(): Collection
+    {
+        return $this->animals;
+    }
+
+    public function addAnimal(Animal $animal): self
+    {
+        if (!$this->animals->contains($animal)) {
+            $this->animals[] = $animal;
+            $animal->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAnimal(Animal $animal): self
+    {
+        if ($this->animals->removeElement($animal)) {
+            // set the owning side to null (unless already changed)
+            if ($animal->getUser() === $this) {
+                $animal->setUser(null);
             }
         }
 

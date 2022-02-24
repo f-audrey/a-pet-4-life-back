@@ -42,6 +42,18 @@ class Animal
      */
     private $status;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="animals")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Species::class, inversedBy="animals")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $species;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -103,6 +115,30 @@ class Animal
     public function setStatus(string $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getSpecies(): ?Species
+    {
+        return $this->species;
+    }
+
+    public function setSpecies(?Species $species): self
+    {
+        $this->species = $species;
 
         return $this;
     }
