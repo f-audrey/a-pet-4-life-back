@@ -11,6 +11,7 @@ use Doctrine\DBAL\Connection;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\User;
 use Faker\Factory as Faker;
+use Faker\Provider\Address;
 
 class AppFixtures extends Fixture
 {
@@ -56,7 +57,9 @@ class AppFixtures extends Fixture
         if ( $type === "Association"){
             $user->setName($associationProvider->randAssociation());
             $user->setSiret($faker->siret());
-            $user->setAdress($faker->address());
+            $user->setAdress($faker->streetAddress());
+            $user->setZipcode(Address::postcode());
+            $user->setCity($faker->city());
             $user->setRegion($faker->region());
             $user->setPhoneNumber($faker->phoneNumber());
             $user->setDescription($faker->text());

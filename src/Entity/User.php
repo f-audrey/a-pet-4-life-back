@@ -59,6 +59,16 @@ class User
      */
     private $adress;
 
+        /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $zipcode;
+
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $city;
+
     /**
      * @ORM\Column(type="string", length=180)
      */
@@ -216,6 +226,30 @@ class User
         return $this;
     }
 
+    public function getZipcode(): ?int
+    {
+        return $this->zipcode;
+    }
+
+    public function setZipcode(?int $zipcode): self
+    {
+        $this->zipcode = $zipcode;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(?string $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
     public function getDepartment(): ?string
     {
         return $this->department;
@@ -353,5 +387,7 @@ class User
 
         return $this;
     }
+
+
 
 }
