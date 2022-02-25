@@ -6,8 +6,10 @@ use App\Entity\User;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Mapping\Id;
+use Exception;
+use App\Models\JsonError;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -61,7 +63,17 @@ class ApiUserController extends AbstractController
 
         $data = $request->getContent();
 
-        $newUser = $serializer->deserialize($data, User::class, 'json');
+        try {
+            $newUser = $serializer->deserialize($data, User::class, 'json');
+        } catch (Exception $e) {
+                return new JsonResponse("Hoouuu !! Ce qui vient d'arriver est de votre faute : JSON invalide", Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+        $errors = $validator->validate($newUser);
+        if (count($errors) > 0) {
+
+            $myJsonErrors = new JsonError(Response::HTTP_UNPROCESSABLE_ENTITY, "Des erreurs de validation ont été trouvés");
+            $myJsonErrors->setValidationErrors($errors);
+        }
 
         $doctrine->persist($newUser);
         $doctrine->flush();
