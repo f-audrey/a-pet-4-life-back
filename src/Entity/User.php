@@ -33,6 +33,7 @@ class User
      * @Groups({"list_associations"})
      * @Groups({"association"})
      * @Groups({"user"})
+     * @Groups({"search"})
      */
     private $name;
 
@@ -85,6 +86,7 @@ class User
      * @Groups({"list_associations"})
      * @Groups({"association"})
      * @Groups({"user"})
+     * @Groups({"search"})
      */
     private $zipcode;
 
@@ -101,6 +103,7 @@ class User
      * @Groups({"list_associations"})
      * @Groups({"association"})
      * @Groups({"user"})
+     * @Groups({"search"})
      */
     private $department;
 
@@ -109,6 +112,7 @@ class User
      * @Groups({"list_associations"})
      * @Groups({"association"})
      * @Groups({"user"})
+     * @Groups({"search"})
      */
     private $region;
 
@@ -125,6 +129,7 @@ class User
      * @Groups({"list_associations"})
      * @Groups({"association"})
      * @Groups({"user"})
+     * @Groups({"search"})
      */
     private $description;
 
@@ -140,6 +145,7 @@ class User
      * @Groups({"list_associations"})
      * @Groups({"association"})
      * @Groups({"user"})
+     * @Groups({"search"})
      */
     private $picture;
 

@@ -89,4 +89,17 @@ class ApiUserController extends AbstractController
             ['groups'=> 'user']
         );
     }
+
+    /**
+     * @Route("/search", name="api_user_search", methods={"GET"})
+     */
+    public function search(UserRepository $userRepo): Response
+    {
+        return $this->json(
+            $userRepo->findAllBySearch(),
+            200,
+            [],
+            ['Groups' => 'search']
+        );
+    }
 }
