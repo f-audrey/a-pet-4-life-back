@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ReviewRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -31,6 +33,16 @@ class Review
      * @ORM\Column(type="date")
      */
     private $publishedAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="postReview")
+     */
+    private $userPost;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="receivesReview")
+     */
+    private $userReceiver;
 
     public function getId(): ?int
     {
@@ -72,4 +84,29 @@ class Review
 
         return $this;
     }
+
+    public function getUserPost(): ?User
+    {
+        return $this->userPost;
+    }
+
+    public function setUserPost(?User $userPost): self
+    {
+        $this->userPost = $userPost;
+
+        return $this;
+    }
+
+    public function getUserReceiver(): ?User
+    {
+        return $this->userReceiver;
+    }
+
+    public function setUserReceiver(?User $userReceiver): self
+    {
+        $this->userReceiver = $userReceiver;
+
+        return $this;
+    }
+
 }

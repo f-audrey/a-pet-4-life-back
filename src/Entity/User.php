@@ -124,10 +124,22 @@ class User
      */
     private $animals;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Review::class, mappedBy="userPost")
+     */
+    private $postReview;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Review::class, mappedBy="userReceiver")
+     */
+    private $receivesReview;
+
     public function __construct()
     {
         $this->assoSpecies = new ArrayCollection();
         $this->animals = new ArrayCollection();
+        $this->postReview = new ArrayCollection();
+        $this->receivesReview = new ArrayCollection();
     }
 
 
@@ -424,6 +436,64 @@ class User
         return $this;
     }
 
+    /**
+     * @return Collection<int, Review>
+     */
+    public function getPostReview(): Collection
+    {
+        return $this->postReview;
+    }
 
+    public function addPostReview(Review $postReview): self
+    {
+        if (!$this->postReview->contains($postReview)) {
+            $this->postReview[] = $postReview;
+            $postReview->setUserPost($this);
+        }
+
+        return $this;
+    }
+
+    public function removePostReview(Review $postReview): self
+    {
+        if ($this->postReview->removeElement($postReview)) {
+            // set the owning side to null (unless already changed)
+            if ($postReview->getUserPost() === $this) {
+                $postReview->setUserPost(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Review>
+     */
+    public function getReceivesReview(): Collection
+    {
+        return $this->receivesReview;
+    }
+
+    public function addReceivesReview(Review $receivesReview): self
+    {
+        if (!$this->receivesReview->contains($receivesReview)) {
+            $this->receivesReview[] = $receivesReview;
+            $receivesReview->setUserReceiver($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReceivesReview(Review $receivesReview): self
+    {
+        if ($this->receivesReview->removeElement($receivesReview)) {
+            // set the owning side to null (unless already changed)
+            if ($receivesReview->getUserReceiver() === $this) {
+                $receivesReview->setUserReceiver(null);
+            }
+        }
+
+        return $this;
+    }
 
 }
