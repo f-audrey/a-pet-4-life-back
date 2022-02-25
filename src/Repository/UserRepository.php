@@ -19,32 +19,43 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
-    // /**
-    //  * @return User[] Returns an array of User objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
+    /** 
+    * @return User[] Renvoie un tableau des objets utilisateurs de type 'Association'
     */
+    public function findAllByAssociation()
+    {
 
-    /*
-    public function findOneBySomeField($value): ?User
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $entityManager = $this->getEntityManager();
+
+        $request = $entityManager->createQuery(
+            "SELECT u 
+            FROM App\Entity\User u
+            WHERE u.type = 'Association'"
+        );
+
+        $resultats = $request->getResult();
+
+        return $resultats;
     }
+
+        /** 
+    * @return User[] Renvoie un tableau des objets utilisateurs de type 'Association'
     */
+    public function findOneAssociation(Int $id)
+    {
+
+        $entityManager = $this->getEntityManager();
+
+        $request = $entityManager->createQuery(
+            "SELECT u 
+            FROM App\Entity\User u
+            WHERE u.type = 'Association' AND u.id = $id"
+        );
+
+        $resultats = $request->getResult();
+
+        return $resultats;
+    }
+
+    
 }

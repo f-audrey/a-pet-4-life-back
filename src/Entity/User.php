@@ -6,7 +6,7 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  */
@@ -16,91 +16,138 @@ class User
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"association"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=25)
+     * @Groups({"list_associations"})
+     * @Groups({"association"})
+     * @Groups({"user"})
      */
     private $type;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
+     * @Groups({"list_associations"})
+     * @Groups({"association"})
+     * @Groups({"user"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
+     * @Groups({"user"})
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
+     * @Groups({"user"})
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="string", nullable=true)
+     * @Groups({"list_associations"})
+     * @Groups({"association"})
+     * @Groups({"user"})
      */
     private $siret;
 
     /**
      * @ORM\Column(type="string", length=180)
+     * @Groups({"list_associations"})
+     * @Groups({"association"})
+     * @Groups({"user"})
      */
     private $mail;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"list_associations"})
+     * @Groups({"association"})
+     * @Groups({"user"})
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"list_associations"})
+     * @Groups({"association"})
+     * @Groups({"user"})
      */
     private $adress;
 
         /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups({"list_associations"})
+     * @Groups({"association"})
+     * @Groups({"user"})
      */
     private $zipcode;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
+     * @Groups({"list_associations"})
+     * @Groups({"association"})
+     * @Groups({"user"})
      */
     private $city;
 
     /**
      * @ORM\Column(type="string", length=180)
+     * @Groups({"list_associations"})
+     * @Groups({"association"})
+     * @Groups({"user"})
      */
     private $department;
 
     /**
      * @ORM\Column(type="string", length=180, nullable=true)
+     * @Groups({"list_associations"})
+     * @Groups({"association"})
+     * @Groups({"user"})
      */
     private $region;
 
     /**
      * @ORM\Column(type="string", nullable=true)
+     * @Groups({"list_associations"})
+     * @Groups({"association"})
+     * @Groups({"user"})
      */
     private $phone_number;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups({"list_associations"})
+     * @Groups({"association"})
+     * @Groups({"user"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups({"list_associations"})
+     * @Groups({"association"})
      */
     private $status;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"list_associations"})
+     * @Groups({"association"})
+     * @Groups({"user"})
      */
     private $picture;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"list_associations"})
+     * @Groups({"association"})
+     * @Groups({"user"})
      */
     private $website;
 
@@ -111,6 +158,8 @@ class User
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"list_associations"})
+     * @Groups({"association"})
      */
     private $slug;
 
@@ -121,21 +170,31 @@ class User
 
     /**
      * @ORM\OneToMany(targetEntity=Animal::class, mappedBy="user", orphanRemoval=true)
+     * @Groups({"list_associations"})
+     * @Groups({"association"})
      */
     private $animals;
 
     /**
      * @ORM\OneToMany(targetEntity=Review::class, mappedBy="userPost")
+     * @Groups({"list_associations"})
+     * @Groups({"association"})
      */
     private $postReview;
 
     /**
      * @ORM\OneToMany(targetEntity=Review::class, mappedBy="userReceiver")
+     * @Groups({"list_associations"})
+     * @Groups({"association"})
      */
     private $receivesReview;
 
     public function __construct()
     {
+
+        $this->role = "ROLE_USER";
+        $this->status = "true";
+
         $this->assoSpecies = new ArrayCollection();
         $this->animals = new ArrayCollection();
         $this->postReview = new ArrayCollection();
