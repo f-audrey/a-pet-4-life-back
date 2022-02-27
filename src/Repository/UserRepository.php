@@ -62,35 +62,17 @@ class UserRepository extends ServiceEntityRepository
 
     public function findAllBySearch($geolocation = null, $responseLocation = null, $species = null)
     {
-    /*         $entityManager = $this->getEntityManager();
+            $entityManager = $this->getEntityManager();
 
         $request = $entityManager->createQuery(
-            "SELECT u.*, s.name 
-            from App\Entity\User u
-            inner join App\Entity\AssoSpecies
-            on u.id = user_id 
-            inner join App\Entity\Species s 
-            on s.id = species_id 
-            where u.region = 'bretagne' or s.name = 'chat'"
+            "SELECT u.name as userName, u.description, u.region, u.city, u.department, u.picture, s.name as speciesName
+            FROM App\Entity\User u
+            JOIN u.assoSpecies a
+            JOIN a.species s
+            WHERE u.region = 'Bretagne' AND s.name = 'chat'
+            OR u.region = 'Bretagne'"
         );
-
         $resultats = $request->getResult();
-
-        return $resultats; */
-        $resultats = $this->createQueryBuilder('u')
-        // à partir d'ici j'utilise l'alias pour représenter une table
-        ->innerJoin(AssoSpecies::class, 'as')
-        ->innerJoin(Species::class, 's')
-        ->where('u.region = :bretagne')
-        ->where('s.name = :chat')
-        //->setParameter('region', $geolocation)
-        ->setParameter('bretagne', $responseLocation)
-        /* ->setParameter('chat', $species) */
-        // l'avant dernière instruction est de générer la requête
-        ->getQuery()
-        // et la dernière instruction est d'exécuter la requête
-        // on reçoit donc les résultats à partir de là
-        ->getResult();
 
         return $resultats;
     }
