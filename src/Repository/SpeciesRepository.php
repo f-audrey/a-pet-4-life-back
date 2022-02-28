@@ -22,19 +22,20 @@ class SpeciesRepository extends ServiceEntityRepository
     // /**
     //  * @return Species[] Returns an array of Species objects
     //  */
-    /*
-    public function findByExampleField($value)
+    public function findAll()
     {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+
+        $entityManager = $this->getEntityManager();
+
+        $request = $entityManager->createQuery(
+            "SELECT s.name
+            FROM App\Entity\Species s"
+        );
+
+        $resultats = $request->getResult();
+
+        return $resultats;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?Species

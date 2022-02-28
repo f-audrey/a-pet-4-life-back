@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use ZipCodeValidator\Constraints\ZipCode;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -93,7 +94,7 @@ class User
      * @Groups({"user"})
      * @Groups({"search"})
      * @Assert\NotBlank
-     * @Assert\ZipCode(countries={"FR"}, message="This is not a valid ZIP code."
+     * @ZipCode(iso="FR")
      */
     private $zipcode;
 
