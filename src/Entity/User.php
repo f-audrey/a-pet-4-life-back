@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  */
@@ -34,18 +36,22 @@ class User
      * @Groups({"association"})
      * @Groups({"user"})
      * @Groups({"search"})
+     * @Assert\NotBlank
+     * @Assert\Unique
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
      * @Groups({"user"})
+     * @Assert\NotBlank
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
      * @Groups({"user"})
+     * @Assert\NotBlank
      */
     private $lastname;
 
@@ -60,6 +66,8 @@ class User
      * @ORM\Column(type="string", length=180)
      * @Groups({"association"})
      * @Groups({"user"})
+     * @Assert\NotBlank
+     * @Assert\Unique
      */
     private $mail;
 
@@ -67,6 +75,7 @@ class User
      * @ORM\Column(type="string", length=255)
      * @Groups({"association"})
      * @Groups({"user"})
+     * @Assert\NotBlank
      */
     private $password;
 
@@ -74,6 +83,7 @@ class User
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"association"})
      * @Groups({"user"})
+     * @Assert\NotBlank
      */
     private $adress;
 
@@ -82,6 +92,8 @@ class User
      * @Groups({"association"})
      * @Groups({"user"})
      * @Groups({"search"})
+     * @Assert\NotBlank
+     * @Assert\ZipCode(countries={"FR"}, message="This is not a valid ZIP code."
      */
     private $zipcode;
 
@@ -90,6 +102,7 @@ class User
      * @Groups({"list_associations"})
      * @Groups({"association"})
      * @Groups({"user"})
+     * @Assert\NotBlank
      */
     private $city;
 
@@ -98,7 +111,8 @@ class User
      * @Groups({"list_associations"})
      * @Groups({"association"})
      * @Groups({"user"})
-     * @Groups({"search"})
+     * @Groups({"search"
+     * 
      */
     private $department;
 
@@ -108,6 +122,7 @@ class User
      * @Groups({"association"})
      * @Groups({"user"})
      * @Groups({"search"})
+     * @Assert\NotBlank
      */
     private $region;
 
@@ -115,6 +130,7 @@ class User
      * @ORM\Column(type="string", nullable=true)
      * @Groups({"association"})
      * @Groups({"user"})
+     * @Assert\NotBlank
      */
     private $phone_number;
 
@@ -124,6 +140,7 @@ class User
      * @Groups({"association"})
      * @Groups({"user"})
      * @Groups({"search"})
+     * @Assert\NotBlank
      */
     private $description;
 
@@ -170,6 +187,7 @@ class User
      * @ORM\OneToMany(targetEntity=Animal::class, mappedBy="user", orphanRemoval=true)
      * @Groups({"list_associations"})
      * @Groups({"association"})
+     * @Assert\NotBlank
      */
     private $animals;
 
