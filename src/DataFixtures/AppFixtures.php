@@ -12,14 +12,19 @@ use Doctrine\Persistence\ObjectManager;
 use App\Entity\User;
 use Faker\Factory as Faker;
 use Faker\Provider\Address;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use App\Service\MySlugger;
 
 class AppFixtures extends Fixture
 {
     private $connexion;
+    private $sluggifier;
+    private $slugger;
 
-    public function __construct(Connection $connexion)
+    public function __construct(Connection $connexion, MySlugger $mySlugger)
     {
         $this->connexion = $connexion;
+        $this->slugger = $mySlugger;
     }
 
     private function truncate()
@@ -65,7 +70,9 @@ class AppFixtures extends Fixture
             $user->setDescription($faker->text());
             $user->setPicture($faker->imageUrl('cats'));
             $user->setWebsite($faker->url());
-            // $user->setSlug();
+
+            $slug = $this->slugger->slugify($user->getName());
+            $user->setSlug($slug);
         }
 
         if ( $type === "Particular") {
