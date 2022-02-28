@@ -7,7 +7,6 @@ use App\Entity\Species;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Doctrine\ORM\Query\Expr\Join;
 
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)

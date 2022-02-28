@@ -112,8 +112,7 @@ class User
      * @Groups({"list_associations"})
      * @Groups({"association"})
      * @Groups({"user"})
-     * @Groups({"search"
-     * 
+     * @Groups({"search"})
      */
     private $department;
 
@@ -192,13 +191,11 @@ class User
 
     /**
      * @ORM\OneToMany(targetEntity=Review::class, mappedBy="userPost")
-     * @Groups({"association"})
      */
     private $postReview;
 
     /**
      * @ORM\OneToMany(targetEntity=Review::class, mappedBy="userReceiver")
-     * @Groups({"association"})
      */
     private $receivesReview;
 
