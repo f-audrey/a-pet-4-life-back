@@ -22,7 +22,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class ApiUserController extends AbstractController
 {
     /**
-     * @Route("/associations", name="api_user_list_associations", methods="GET")
+     * @Route("/associations", name="api_user_list_associations", methods={"GET"})
      */
     public function showAllAssociations(UserRepository $userRepository): Response
     {

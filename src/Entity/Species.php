@@ -22,6 +22,8 @@ class Species
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Groups({"list_associations"})
+     * @Groups({"association"})
      * @Groups({"search"})
      */
     private $name;

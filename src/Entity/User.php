@@ -51,7 +51,6 @@ class User
 
     /**
      * @ORM\Column(type="string", nullable=true)
-     * @Groups({"list_associations"})
      * @Groups({"association"})
      * @Groups({"user"})
      */
@@ -59,7 +58,6 @@ class User
 
     /**
      * @ORM\Column(type="string", length=180)
-     * @Groups({"list_associations"})
      * @Groups({"association"})
      * @Groups({"user"})
      */
@@ -67,7 +65,6 @@ class User
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"list_associations"})
      * @Groups({"association"})
      * @Groups({"user"})
      */
@@ -75,7 +72,6 @@ class User
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"list_associations"})
      * @Groups({"association"})
      * @Groups({"user"})
      */
@@ -83,7 +79,6 @@ class User
 
         /**
      * @ORM\Column(type="integer", nullable=true)
-     * @Groups({"list_associations"})
      * @Groups({"association"})
      * @Groups({"user"})
      * @Groups({"search"})
@@ -118,7 +113,6 @@ class User
 
     /**
      * @ORM\Column(type="string", nullable=true)
-     * @Groups({"list_associations"})
      * @Groups({"association"})
      * @Groups({"user"})
      */
@@ -135,7 +129,6 @@ class User
 
     /**
      * @ORM\Column(type="boolean")
-     * @Groups({"list_associations"})
      * @Groups({"association"})
      */
     private $status;
@@ -151,7 +144,6 @@ class User
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"list_associations"})
      * @Groups({"association"})
      * @Groups({"user"})
      */
@@ -183,14 +175,12 @@ class User
 
     /**
      * @ORM\OneToMany(targetEntity=Review::class, mappedBy="userPost")
-     * @Groups({"list_associations"})
      * @Groups({"association"})
      */
     private $postReview;
 
     /**
      * @ORM\OneToMany(targetEntity=Review::class, mappedBy="userReceiver")
-     * @Groups({"list_associations"})
      * @Groups({"association"})
      */
     private $receivesReview;
