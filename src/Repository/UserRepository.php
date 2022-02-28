@@ -43,20 +43,20 @@ class UserRepository extends ServiceEntityRepository
     /** 
     * @return User[] Renvoie un tableau des objets utilisateurs de type 'Association'
     */
-    public function findOneAssociation(Int $id)
+    public function findOneAssociation($slug)
     {
+    $entityManager = $this->getEntityManager();
 
-        $entityManager = $this->getEntityManager();
+    $request = $entityManager->createQuery(
+        "SELECT u 
+        FROM App\Entity\User u
+        WHERE u.type = 'Association' AND u.slug = :slug");
+        $request->setParameter('slug', $slug);
 
-        $request = $entityManager->createQuery(
-            "SELECT u 
-            FROM App\Entity\User u
-            WHERE u.type = 'Association' AND u.id = $id"
-        );
-
-        $resultats = $request->getResult();
+        $resultats = $request->getResult(); 
 
         return $resultats;
+        
     }
 
     public function findAllBySearch($geolocation = null, $responseLocation = null, $species = null)

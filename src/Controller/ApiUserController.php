@@ -39,13 +39,15 @@ class ApiUserController extends AbstractController
     }
 
     /**
-     * @Route("/association/{id}", name="api_user_association", methods={"GET"})
+     * @Route("/association/{slug}", name="api_user_association", methods={"GET"})
      */
-    public function showOneAssociation(UserRepository $userRepo, Int $id): Response
+    public function showOneAssociation(UserRepository $userRepo, $slug): Response
     {
+        $user = $userRepo->findOneAssociation($slug);
+
         return $this->json(
             // les données à transformer en JSON
-            $userRepo->findOneAssociation($id),
+            $user,
             // HTTP STATUS CODE
             200,
             // HTTP headers supplémentaires, d

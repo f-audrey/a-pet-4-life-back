@@ -68,20 +68,22 @@ class AppFixtures extends Fixture
             $user->setRegion($faker->region());
             $user->setPhoneNumber($faker->phoneNumber());
             $user->setDescription($faker->text());
-            $user->setPicture($faker->imageUrl('cats'));
-            $user->setWebsite($faker->url());
+            $user->setPicture('https://loremflickr.com/640/480/kitten');
 
             $slug = $this->slugger->slugify($user->getName());
             $user->setSlug($slug);
+
+            $user->setMail($user->getSlug() . '@exemple.com');
+            $user->setWebsite('https:://fake-' . $user->getSlug() . '.com');
         }
 
         if ( $type === "Particular") {
             $user->setFirstname($faker->firstName());
             $user->setLastname($faker->lastName());
+            $user->setMail($user->getFirstname() . $user->getLastname() . '@exemple.com');
         }
 
         $user->setDepartment($faker->departmentName());
-        $user->setMail($faker->safeEmail());
         $user->setPassword('password');
 
         $status = rand (1,2) == 1 ? 'true' : 'false';
