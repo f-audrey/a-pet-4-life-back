@@ -64,14 +64,20 @@ class UserRepository extends ServiceEntityRepository
     {
         $entityManager = $this->getEntityManager();
 
+        /* 
+        Ce que le front doit nous envoyer : 
+        $geolocation = 'region' ou 'department' ou 'zipcode';
+        $responseLocation = la valeur que l'input (choix utilisateur);
+        $species = l'espèce choisi par l'utilisateur; */
+
         $request = $entityManager->createQuery(
             "SELECT u.name as userName, u.description, u.region, u.city, u.department, u.picture, s.name as speciesName
             FROM App\Entity\User u
             JOIN u.assoSpecies a
             JOIN a.species s
-            WHERE (u.region = 'Saint-Barthélémy' AND s.name = 'chat')
-            OR u.region = 'Saint-Barthélémy'
-            OR s.name = 'chat'"
+            WHERE (u.$geolocation = '$responseLocation' AND s.name = '$species')
+            OR u.$geolocation = '$responseLocation'
+            OR s.name = '$species'"
         );
         $resultats = $request->getResult();
 

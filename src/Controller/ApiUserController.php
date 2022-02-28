@@ -66,7 +66,7 @@ class ApiUserController extends AbstractController
         try {
             $newUser = $serializer->deserialize($data, User::class, 'json');
         } catch (Exception $e) {
-                return new JsonResponse("Hoouuu !! Ce qui vient d'arriver est de votre faute : JSON invalide", Response::HTTP_UNPROCESSABLE_ENTITY);
+                return new JsonResponse("JSON invalide", Response::HTTP_UNPROCESSABLE_ENTITY);
         }
         $errors = $validator->validate($newUser);
         if (count($errors) > 0) {
