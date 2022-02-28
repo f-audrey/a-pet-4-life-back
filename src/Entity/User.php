@@ -185,9 +185,7 @@ class User
 
     /**
      * @ORM\OneToMany(targetEntity=Animal::class, mappedBy="user", orphanRemoval=true)
-     * @Groups({"list_associations"})
      * @Groups({"association"})
-     * @Assert\NotBlank
      */
     private $animals;
 
