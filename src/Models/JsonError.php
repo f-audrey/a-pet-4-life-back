@@ -7,21 +7,24 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 class JsonError
 {
+
     private $error;
     private $message;
-
-    public function __construct(Int $error = Response::HTTP_NOT_FOUND, string $message = 'Not Found')
+    
+    public function __construct(int $error = Response::HTTP_NOT_FOUND, string $message = "Not Found")
     {
         $this->error = $error;
-        $this->message = $message;
+        $this->message[] = $message;
     }
-
+    
     public function setValidationErrors(ConstraintViolationListInterface $errors)
     {
-        foreach($errors as $error)
-        {
+        foreach ($errors as $error) {
+            //dd($error);
+            
             $this->message[] = "La valeur '" .$error->getInvalidValue(). "' ne respecte pas les règles de validation de la propriété '". $error->getPropertyPath() . "'";
         }
+        // dd($this);
     }
 
     /**

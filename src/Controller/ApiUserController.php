@@ -15,6 +15,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use App\Service\MySlugger;
 
 /**
      * @Route("/api/user")
@@ -60,15 +62,16 @@ class ApiUserController extends AbstractController
     /**
      * @Route("/create", name="api_user_create", methods={"POST"})
      */
-    public function createUser(EntityManagerInterface $doctrine, Request $request, SerializerInterface $serializer, ValidatorInterface $validator): Response
+    public function createUser(EntityManagerInterface $doctrine, Request $request, SerializerInterface $serializer, ValidatorInterface $validator, MySlugger $slugger): Response
     {
 
         $data = $request->getContent();
-
+        
         try {
             $newUser = $serializer->deserialize($data, User::class, 'json');
-        } catch (Exception $e) {
-                return new JsonResponse("JSON invalide", Response::HTTP_UNPROCESSABLE_ENTITY);
+        } 
+        catch (Exception $e) {
+        return new JsonResponse("JSON invalide", Response::HTTP_UNPROCESSABLE_ENTITY);
         }
         $errors = $validator->validate($newUser);
         if (count($errors) > 0) {
@@ -76,6 +79,9 @@ class ApiUserController extends AbstractController
             $myJsonErrors = new JsonError(Response::HTTP_UNPROCESSABLE_ENTITY, "Des erreurs de validation ont été trouvés");
             $myJsonErrors->setValidationErrors($errors);
         }
+
+        $slug = $slugger->slugify($newUser->getName());
+        $newUser->setSlug($slug);
 
         $doctrine->persist($newUser);
         $doctrine->flush();
