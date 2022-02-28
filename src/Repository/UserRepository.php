@@ -62,15 +62,16 @@ class UserRepository extends ServiceEntityRepository
 
     public function findAllBySearch($geolocation = null, $responseLocation = null, $species = null)
     {
-            $entityManager = $this->getEntityManager();
+        $entityManager = $this->getEntityManager();
 
         $request = $entityManager->createQuery(
             "SELECT u.name as userName, u.description, u.region, u.city, u.department, u.picture, s.name as speciesName
             FROM App\Entity\User u
             JOIN u.assoSpecies a
             JOIN a.species s
-            WHERE u.region = 'Bretagne' AND s.name = 'chat'
-            OR u.region = 'Bretagne'"
+            WHERE (u.region = 'Saint-Barthélémy' AND s.name = 'chat')
+            OR u.region = 'Saint-Barthélémy'
+            OR s.name = 'chat'"
         );
         $resultats = $request->getResult();
 
