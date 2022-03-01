@@ -69,15 +69,33 @@ class UserRepository extends ServiceEntityRepository
         $responseLocation = la valeur que l'input (choix utilisateur);
         $species = l'espèce choisi par l'utilisateur; */
 
+        if (isset($geolocation, $responseLocation, $species)){
         $request = $entityManager->createQuery(
-            "SELECT u.name as userName, u.description, u.region, u.city, u.department, u.picture, s.name as speciesName
+            "SELECT u.type, u.name as userName, u.description, u.region, u.city, u.department, u.picture, s.name as speciesName
             FROM App\Entity\User u
             JOIN u.assoSpecies a
             JOIN a.species s
-            WHERE (u.$geolocation = '$responseLocation' AND s.name = '$species')
-            OR u.$geolocation = '$responseLocation'
-            OR s.name = '$species'"
-        );
+            WHERE (u.$geolocation = '$responseLocation' AND s.name = '$species')"
+        );}
+
+        else if (isset($geolocation, $responseLocation)){
+        $request = $entityManager->createQuery(
+            "SELECT u.type, u.name as userName, u.description, u.region, u.city, u.department, u.picture, s.name as speciesName
+            FROM App\Entity\User u
+            JOIN u.assoSpecies a
+            JOIN a.species s
+            WHERE (u.$geolocation = '$responseLocation')"
+        );}
+
+        else if (isset($species)){
+            $request = $entityManager->createQuery(
+                "SELECT u.type, u.name as userName, u.description, u.region, u.city, u.department, u.picture, s.name as speciesName
+                FROM App\Entity\User u
+                JOIN u.assoSpecies a
+                JOIN a.species s
+                WHERE (s.name = '$species')"
+            );};
+
         $resultats = $request->getResult();
 
         return $resultats;
