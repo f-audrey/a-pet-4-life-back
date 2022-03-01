@@ -100,7 +100,8 @@ class ApiUserController extends AbstractController
     }
 
     /**
-     * @Route("/search", name="api_user_search", methods={"GET"})
+     * @Route("/search", name="api_user_search", methods={"POST"})
+     * * //todo A CHANGER EN GET AVEC GETQUERYSTRING
      */
     public function search(UserRepository $userRepo, Request $request, SerializerInterface $serializer): Response
     {
