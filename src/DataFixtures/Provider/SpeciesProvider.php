@@ -14,7 +14,6 @@ class SpeciesProvider
         'Serpent',
     ];
 
-
     /**
      * Retourne un nom d'espèce au hasard
      */

@@ -2,8 +2,11 @@
 
 namespace App\DataFixtures;
 
+use App\DataFixtures\Provider\AnimalProvider;
 use App\DataFixtures\Provider\AssociationProvider;
+use App\DataFixtures\Provider\RegionProvider;
 use App\DataFixtures\Provider\SpeciesProvider;
+use App\Entity\Animal;
 use App\Entity\AssoSpecies;
 use App\Entity\Species;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -12,13 +15,11 @@ use Doctrine\Persistence\ObjectManager;
 use App\Entity\User;
 use Faker\Factory as Faker;
 use Faker\Provider\Address;
-use Symfony\Component\String\Slugger\SluggerInterface;
 use App\Service\MySlugger;
 
 class AppFixtures extends Fixture
 {
     private $connexion;
-    private $sluggifier;
     private $slugger;
 
     public function __construct(Connection $connexion, MySlugger $mySlugger)
@@ -46,56 +47,8 @@ class AppFixtures extends Fixture
 
         $associationProvider = new AssociationProvider();
         $speciesProvider = new SpeciesProvider();
-
-    /* ============== USER ==============  */
-
-    $allUserEntity = [];
-    
-    for ($i = 1; $i<= 25; $i++)
-    {
-        $user = new User;
-
-        $type = rand (1,2) == 1 ? 'Association' : 'Particular';
-
-        $user->setType($type);
-
-        if ( $type === "Association"){
-            $user->setName($associationProvider->randAssociation());
-            $user->setSiret($faker->siret());
-            $user->setAdress($faker->streetAddress());
-            $user->setZipcode(Address::postcode());
-            $user->setCity($faker->city());
-            $user->setRegion($faker->region());
-            $user->setPhoneNumber($faker->phoneNumber());
-            $user->setDescription($faker->text());
-            $user->setPicture('https://loremflickr.com/640/480/kitten');
-
-            $slug = $this->slugger->slugify($user->getName());
-            $user->setSlug($slug);
-
-            $user->setMail($user->getSlug() . '@exemple.com');
-            $user->setWebsite('https:://fake-' . $user->getSlug() . '.com');
-        }
-
-        if ( $type === "Particular") {
-            $user->setFirstname($faker->firstName());
-            $user->setLastname($faker->lastName());
-            $user->setMail($user->getFirstname() . $user->getLastname() . '@exemple.com');
-        }
-
-        $user->setDepartment($faker->departmentName());
-        $user->setPassword('password');
-
-        $status = rand (1,2) == 1 ? 'true' : 'false';
-
-        $user->setStatus($status);
-        $user->setRole('ROLE_USER');
-
-        $allUserEntity[] = $user;
-
-        $manager->persist($user);
-       
-    }
+        $regionProvider = new RegionProvider();
+        $animalProvider = new AnimalProvider();
 
     /* ============== SPECIES ==============  */
     $allSpeciesEntity = [];
@@ -117,6 +70,59 @@ class AppFixtures extends Fixture
         $allSpeciesEntity[] = $newSpecies;
         $manager->persist($newSpecies);
     }
+
+    /* ============== USER ==============  */
+
+    $allUserEntity = [];
+    $allAssociationsEntity = [];
+    $allParticularEntity = [];
+    
+    for ($i = 1; $i<= 25; $i++)
+    {
+        $user = new User;
+
+        $type = rand (1,2) == 1 ? 'Association' : 'Particular';
+
+        $user->setType($type);
+
+        if ( $type === "Association"){
+            $user->setName($associationProvider->randAssociation());
+            $user->setSiret($faker->siret());
+            $user->setAdress($faker->streetAddress());
+            $user->setZipcode(Address::postcode());
+            $user->setCity($faker->city());
+            $user->setRegion($regionProvider->randRegion());
+            $user->setPhoneNumber($faker->phoneNumber());
+            $user->setDescription($faker->text());
+            $user->setPicture(' https://placekitten.com/500/' . mt_rand(500, 600));
+
+            $slug = $this->slugger->slugify($user->getName());
+            $user->setSlug($slug);
+
+            $user->setMail($user->getSlug() . '@exemple.com');
+            $user->setWebsite('https:://fake-' . $user->getSlug() . '.com');
+            $allAssociationsEntity[] = $user;
+            }
+
+        if ( $type === "Particular") {
+            $user->setFirstname($faker->firstName());
+            $user->setLastname($faker->lastName());
+            $user->setMail($user->getFirstname() . $user->getLastname() . '@exemple.com');
+            $allParticularEntity[] = $user;
+        }
+
+        $user->setDepartment($faker->departmentName());
+        $user->setPassword('password');
+
+        $status = rand (1,2) == 1 ? 'true' : 'false';
+
+        $user->setStatus($status);
+        $user->setRole('ROLE_USER');
+
+        $allUserEntity[] = $user;
+
+        $manager->persist($user);
+    }
     
     /* ============== ASSO_SPECIES ==============  */
 
@@ -124,7 +130,7 @@ class AppFixtures extends Fixture
     
     $assoSpecies = new AssoSpecies;
 
-    $randomUser = $allUserEntity[mt_rand(0, count($allUserEntity) - 1)];
+    $randomUser = $allAssociationsEntity[mt_rand(0, count($allAssociationsEntity) - 1)];
     $assoSpecies->setUser($randomUser);
 
     $randomSpecies = $allSpeciesEntity[mt_rand(0, count($allSpeciesEntity) - 1)];
@@ -132,6 +138,48 @@ class AppFixtures extends Fixture
     
     $manager->persist($assoSpecies);
     }
+    
+    /* ============== ANIMALS ==============  */
+    $allAnimalsEntity = [];
+    for($i = 0; $i < 100; $i ++) {
+            
+    $animal = new Animal;
+
+    $animal->setName($animalProvider->randAnimal());
+
+    $sexe = rand (1,2) == 1 ? 'Female' : 'male';
+    $animal->setSexe($sexe);
+
+    $animal->setDescription($faker->text());
+
+    $status = rand (1,3);
+    switch ($status) {
+        case 1:
+            "junior";
+            break;
+        case 2:
+            "adulte";
+            break;
+        case 3:
+            "senior";
+            break;
+    }
+    $animal->setStatus($status);
+
+    $randomUser = $allAssociationsEntity[mt_rand(0, count($allAssociationsEntity) - 1)];
+    $animal->setUser($randomUser);
+
+    $randomSpecies = $allSpeciesEntity[mt_rand(0, count($allSpeciesEntity) - 1)];
+    $animal->setSpecies($randomSpecies);
+
+    $allAnimalsEntity[] = $animal;
+    $manager->persist($animal);
+}
+    
+    /* ============== REVIEWS ==============  */
+    /* for($i = 0; $i < 100; $i ++) {
+        
+    } */
 
     $manager->flush();
     }
