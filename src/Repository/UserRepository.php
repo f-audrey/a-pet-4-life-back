@@ -2,8 +2,6 @@
 
 namespace App\Repository;
 
-use App\Entity\AssoSpecies;
-use App\Entity\Species;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -43,20 +41,20 @@ class UserRepository extends ServiceEntityRepository
     /** 
     * @return User[] Renvoie un tableau des objets utilisateurs de type 'Association'
     */
-    public function findOneAssociation($slug)
+    public function findOneAssociation(Int $id)
     {
-    $entityManager = $this->getEntityManager();
 
-    $request = $entityManager->createQuery(
-        "SELECT u 
-        FROM App\Entity\User u
-        WHERE u.type = 'Association' AND u.slug = :slug");
-        $request->setParameter('slug', $slug);
+        $entityManager = $this->getEntityManager();
 
-        $resultats = $request->getResult(); 
+        $request = $entityManager->createQuery(
+            "SELECT u 
+            FROM App\Entity\User u
+            WHERE u.type = 'Association' AND u.id = $id"
+        );
+
+        $resultats = $request->getResult();
 
         return $resultats;
-        
     }
 
     public function findAllBySearch($geolocation = null, $responseLocation = null, $species = null)
@@ -69,15 +67,33 @@ class UserRepository extends ServiceEntityRepository
         $responseLocation = la valeur que l'input (choix utilisateur);
         $species = l'espèce choisi par l'utilisateur; */
 
+        if (isset($geolocation, $responseLocation, $species)){
         $request = $entityManager->createQuery(
-            "SELECT u.name as userName, u.description, u.region, u.city, u.department, u.picture, s.name as speciesName
+            "SELECT u.type, u.name as userName, u.description, u.region, u.city, u.department, u.picture, s.name as speciesName
             FROM App\Entity\User u
             JOIN u.assoSpecies a
             JOIN a.species s
-            WHERE (u.$geolocation = '$responseLocation' AND s.name = '$species')
-            OR u.$geolocation = '$responseLocation'
-            OR s.name = '$species'"
-        );
+            WHERE (u.$geolocation = '$responseLocation' AND s.name = '$species')"
+        );}
+
+        else if (isset($geolocation, $responseLocation)){
+        $request = $entityManager->createQuery(
+            "SELECT u.type, u.name as userName, u.description, u.region, u.city, u.department, u.picture, s.name as speciesName
+            FROM App\Entity\User u
+            JOIN u.assoSpecies a
+            JOIN a.species s
+            WHERE (u.$geolocation = '$responseLocation')"
+        );}
+
+        else if (isset($species)){
+            $request = $entityManager->createQuery(
+                "SELECT u.type, u.name as userName, u.description, u.region, u.city, u.department, u.picture, s.name as speciesName
+                FROM App\Entity\User u
+                JOIN u.assoSpecies a
+                JOIN a.species s
+                WHERE (s.name = '$species')"
+            );};
+
         $resultats = $request->getResult();
 
         return $resultats;

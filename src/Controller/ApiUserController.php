@@ -17,6 +17,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use App\Service\MySlugger;
+use App\Models\Search;
 
 /**
      * @Route("/api/user")
@@ -101,10 +102,13 @@ class ApiUserController extends AbstractController
     /**
      * @Route("/search", name="api_user_search", methods={"GET"})
      */
-    public function search(UserRepository $userRepo): Response
+    public function search(UserRepository $userRepo, Request $request, SerializerInterface $serializer): Response
     {
+        $data = $request->getContent();
+        $newSearch =  $serializer->deserialize($data, Search::class, 'json');
+        
         return $this->json(
-            $userRepo->findAllBySearch(),
+            $userRepo->findAllBySearch($newSearch->getGeolocation(), $newSearch->getResponseLocation(), $newSearch->getSpecies() ),
             200,
             [],
             ['Groups' => 'search']
