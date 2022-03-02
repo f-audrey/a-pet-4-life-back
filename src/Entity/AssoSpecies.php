@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\AssoSpeciesRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=AssoSpeciesRepository::class)
@@ -26,6 +27,7 @@ class AssoSpecies
     /**
      * @ORM\ManyToOne(targetEntity=Species::class, inversedBy="assoSpecies")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"association"})
      */
     private $species;
 

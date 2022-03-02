@@ -27,6 +27,7 @@ class Species
      * @Groups({"association"})
      * @Groups({"search"})
      * @Groups({"list_species"})
+     * @Groups({"animal"})
      * @Assert\NotBlank
      */
     private $name;
