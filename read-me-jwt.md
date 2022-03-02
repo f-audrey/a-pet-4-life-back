@@ -23,3 +23,6 @@ dans le JSON mettre :
 }
 
 Et vous avez un token !
+
+Pour le rentrer dans insomnia: 
+Auth -> Bearer Token
