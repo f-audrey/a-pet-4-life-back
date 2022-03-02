@@ -16,15 +16,18 @@ use App\Entity\User;
 use Faker\Factory as Faker;
 use Faker\Provider\Address;
 use App\Service\MySlugger;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
     private $connexion;
+    private $hasher;
     private $slugger;
 
-    public function __construct(Connection $connexion, MySlugger $mySlugger)
+    public function __construct(Connection $connexion, UserPasswordHasherInterface $hasher, MySlugger $mySlugger)
     {
         $this->connexion = $connexion;
+        $this->hasher = $hasher;
         $this->slugger = $mySlugger;
     }
 
@@ -112,12 +115,15 @@ class AppFixtures extends Fixture
         }
 
         $user->setDepartment($faker->departmentName());
-        $user->setPassword('password');
+
+        
+        $password = $this->hasher->hashPassword($user, 'password');
+        $user->setPassword($password);
 
         $status = rand (1,2) == 1 ? 'true' : 'false';
 
         $user->setStatus($status);
-        $user->setRole('ROLE_USER');
+        $user->setRoles(['ROLE_USER']);
 
         $allUserEntity[] = $user;
 
