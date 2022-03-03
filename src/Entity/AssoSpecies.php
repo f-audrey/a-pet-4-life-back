@@ -28,6 +28,8 @@ class AssoSpecies
      * @ORM\ManyToOne(targetEntity=Species::class, inversedBy="assoSpecies")
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"association"})
+     * @Groups({"search"})
+     * @Groups({"list_associations"})
      */
     private $species;
 

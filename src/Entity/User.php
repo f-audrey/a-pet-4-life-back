@@ -187,6 +187,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\OneToMany(targetEntity=AssoSpecies::class, mappedBy="user")
      * @Groups({"association"})
+     * @Groups({"search"})
+     * @Groups({"list_associations"})
      */
     private $assoSpecies;
 
