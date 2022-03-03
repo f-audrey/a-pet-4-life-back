@@ -51,7 +51,6 @@ class UserSlugifyCommand extends Command
         
         // Récupérer tous les utilisateurs
         $associations = $this->userRepository->findAllByAssociation();
-        dd($associations);
 
         // créer le slug à partir du name des utilisateurs
         foreach ($associations as $association) {
