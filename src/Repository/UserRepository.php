@@ -2,7 +2,6 @@
 
 namespace App\Repository;
 
-use App\Entity\AssoSpecies;
 use App\Entity\Species;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
