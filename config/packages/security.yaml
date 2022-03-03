@@ -22,10 +22,17 @@ security:
                 success_handler: lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
 
-        api:
-            pattern:   ^/api
-            stateless: true
-            jwt: ~
+        # partie secure de l'API
+        api_secure:
+           pattern:   ^/api/secure
+           stateless: true
+           jwt: ~
+        
+        # partie publique de l'API
+        api_public:
+           pattern:   ^/api
+           stateless: true
+        #   jwt: ~
 
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -45,8 +52,10 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
-        - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
+        # Routes API :
+        - { path: ^/api/login, roles: PUBLIC_ACCESS }
+        - { path: ^/api, roles: PUBLIC_ACCESS }
+        - { path: ^/api/secure,       roles: IS_AUTHENTICATED_FULLY }
 when@test:
     security:
         password_hashers:
