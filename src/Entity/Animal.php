@@ -15,6 +15,7 @@ class Animal
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"search"})
      */
     private $id;
 
@@ -23,6 +24,7 @@ class Animal
      * @Groups({"association"})
      * @Groups({"list_animal"})
      * @Groups({"animal"})
+     * @Groups({"search"})
      */
     private $name;
 
@@ -30,12 +32,14 @@ class Animal
      * @ORM\Column(type="string", length=50)
      * @Groups({"association"})
      * @Groups({"animal"})
+     * @Groups({"search"})
      */
     private $sexe;
 
     /**
      * @ORM\Column(type="date", nullable=true)
      * @Groups({"animal"})
+     * @Groups({"search"})
      */
     private $date_of_birth;
 
@@ -43,6 +47,7 @@ class Animal
      * @ORM\Column(type="text")
      * @Groups({"association"})
      * @Groups({"animal"})
+     * @Groups({"search"})
      */
     private $description;
 
@@ -50,6 +55,7 @@ class Animal
      * @ORM\Column(type="string", length=32)
      * @Groups({"association"})
      * @Groups({"animal"})
+     * @Groups({"search"})
      */
     private $status;
 
@@ -72,6 +78,7 @@ class Animal
      * @ORM\Column(type="string", length=255)
      * @Groups({"list_animal"})
      * @Groups({"animal"})
+     * @Groups({"search"})
      */
     private $picture;
 

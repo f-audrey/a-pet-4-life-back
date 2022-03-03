@@ -18,6 +18,7 @@ class Species
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"search"})
      */
     private $id;
 

@@ -22,6 +22,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * @Groups({"association"})
+     * @Groups({"search"})
      */
     private $id;
 
@@ -64,6 +65,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", nullable=true)
      * @Groups({"association"})
      * @Groups({"user"})
+     * @Groups({"search"})
      */
     private $siret;
 
@@ -72,6 +74,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups({"association"})
      * @Groups({"user"})
      * @Groups({"animal"})
+     * @Groups({"search"})
      * @Assert\NotBlank
      * @Assert\Unique
      */
@@ -89,6 +92,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"association"})
      * @Groups({"user"})
+     * @Groups({"search"})
      * @Assert\NotBlank
      */
     private $adress;
@@ -108,6 +112,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups({"list_associations"})
      * @Groups({"association"})
      * @Groups({"user"})
+     * @Groups({"search"})
      * @Assert\NotBlank
      */
     private $city;
@@ -135,6 +140,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", nullable=true)
      * @Groups({"association"})
      * @Groups({"user"})
+     * @Groups({"search"})
      * @Assert\NotBlank
      */
     private $phone_number;
@@ -168,6 +174,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"association"})
      * @Groups({"user"})
+     * @Groups({"search"})
      */
     private $website;
 
@@ -187,6 +194,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\OneToMany(targetEntity=Animal::class, mappedBy="user", orphanRemoval=true)
      * @Groups({"association"})
+     * @Groups({"search"})
      */
     private $animals;
 
@@ -202,6 +210,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\ManyToMany(targetEntity=Species::class, inversedBy="users")
+     * @Groups({"search"})
      */
     private $species;
 
