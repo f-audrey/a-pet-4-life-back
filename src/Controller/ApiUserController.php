@@ -18,6 +18,9 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use App\Service\MySlugger;
 use App\Models\Search;
+use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Component\HttpKernel\EventListener\ResponseListener;
+use Symfony\Component\HttpKernel\HttpClientKernel;
 
 /**
      * @Route("/api/user")
@@ -100,19 +103,34 @@ class ApiUserController extends AbstractController
     }
 
     /**
-     * @Route("/search", name="api_user_search", methods={"POST"})
-     * * //TODO : getQueryString pour le get
+     * @Route("/search", name="api_user_search", methods={"GET"})
      */
     public function search(UserRepository $userRepo, Request $request, SerializerInterface $serializer): Response
     {
-        $data = $request->getContent();
-        $newSearch =  $serializer->deserialize($data, Search::class, 'json');
+
+        $newSearch = $request->get('http://localhost:8080/api/user/search', [
+            // these values are automatically encoded before including them in the URL
+            'query' => [
+                'geolocation' => $request->get('geolocation'),
+                'responselocation' => $request->get('responselocation'),
+                // 'species'=> $request->get('species'),
+            ],
+        ]);
+
+        // $data = $request->get('geolocation');
+        // $data2 = $request->get('responselocation');
+        // dd($data2);
+        // $newSearch =  $serializer->deserialize($data, Search::class, 'json');
+        // dd($newSearch['query']['geolocation']);
+        $geolocation = $newSearch['query']['geolocation'];
+        $responseLocation = $newSearch['query']['responselocation'];
+        // $species = $newSearch['query']['species'];
         
         return $this->json(
-            $userRepo->findAllBySearch($newSearch->getGeolocation(), $newSearch->getResponseLocation(), $newSearch->getSpecies() ),
+            $userRepo->findAllBySearch($geolocation, $responseLocation),
             200,
             [],
-            ['groups' => 'search']
+            ['groups' => 'association']
         );
     }
 
@@ -124,7 +142,7 @@ class ApiUserController extends AbstractController
         $content = $request->getContent(); // Get json from request
 
         $user = $userRepo->find($id); // Try to find product in database with provided id
-      
+
         try {
             $user = $serializer->deserialize($content, User::class, 'json', ['object_to_populate' => $user]);
         } 

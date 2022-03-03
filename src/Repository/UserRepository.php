@@ -59,7 +59,7 @@ class UserRepository extends ServiceEntityRepository
         
     }
 
-    public function findAllBySearch($geolocation = null, $responseLocation = null, $species = null, $assoSpecies = null)
+    public function findAllBySearch($geolocation = null, $responseLocation = null, $species = null)
     {
         $entityManager = $this->getEntityManager();
 
@@ -69,7 +69,7 @@ class UserRepository extends ServiceEntityRepository
         $responseLocation = la valeur que l'input (choix utilisateur);
         $species = l'espèce choisi par l'utilisateur; */
 
-/*         if (isset($geolocation, $responseLocation, $species)){
+        /* if (isset($geolocation, $responseLocation, $species)){
         $request = $entityManager->createQuery(
             "SELECT u
             FROM App\Entity\User u
@@ -86,8 +86,8 @@ class UserRepository extends ServiceEntityRepository
             WHERE u.$geolocation = :responseLocation");
 
             $request->setParameter('responseLocation', $responseLocation);}
-/* 
-        else if (isset($species)){
+
+        /* else if (isset($species)){
             $request = $entityManager->createQuery(
             "SELECT u
             FROM App\Entity\User u
@@ -95,7 +95,6 @@ class UserRepository extends ServiceEntityRepository
             JOIN species s
             WHERE u.a.s.name = '$species'");
         }; */
-        
 
         $resultats = $request->getResult();
 
