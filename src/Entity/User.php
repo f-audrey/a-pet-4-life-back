@@ -39,6 +39,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups({"association"})
      * @Groups({"user"})
      * @Groups({"search"})
+     * @Groups({"list_animal"})
+     * @Groups({"animal"})
      * @Assert\NotBlank
      * @Assert\Unique
      */
@@ -69,6 +71,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", length=180)
      * @Groups({"association"})
      * @Groups({"user"})
+     * @Groups({"animal"})
      * @Assert\NotBlank
      * @Assert\Unique
      */
@@ -177,11 +180,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"list_associations"})
      * @Groups({"association"})
+     * @Groups({"search"})
      */
     private $slug;
 
     /**
      * @ORM\OneToMany(targetEntity=AssoSpecies::class, mappedBy="user")
+     * @Groups({"association"})
      */
     private $assoSpecies;
 

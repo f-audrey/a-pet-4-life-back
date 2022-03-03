@@ -40,6 +40,7 @@ class AppFixtures extends Fixture
         // La requete TRUNCATE remet l'auto increment à 1
         $this->connexion->executeQuery('TRUNCATE TABLE species');
         $this->connexion->executeQuery('TRUNCATE TABLE user');
+        $this->connexion->executeQuery('TRUNCATE TABLE animal');
 
     }
     public function load(ObjectManager $manager): void

@@ -115,4 +115,64 @@ class ApiUserController extends AbstractController
             ['Groups' => 'search']
         );
     }
+
+        /**
+     * @Route("/update/{id}", name="api_user_update", methods={"PATCH"})
+     */
+    public function updateUser(EntityManagerInterface $doctrine, Request $request, SerializerInterface $serializer, ValidatorInterface $validator, UserRepository $userRepo, int $id)
+    {
+        $content = $request->getContent(); // Get json from request
+
+        $user = $userRepo->find($id); // Try to find product in database with provided id
+      
+        try {
+            $user = $serializer->deserialize($content, User::class, 'json', ['object_to_populate' => $user]);
+        } 
+        catch (Exception $e) {
+        return new JsonResponse("JSON invalide", Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+        $errors = $validator->validate($user);
+        if (count($errors) > 0) {
+
+            $myJsonErrors = new JsonError(Response::HTTP_UNPROCESSABLE_ENTITY, "Des erreurs de validation ont été trouvés");
+            $myJsonErrors->setValidationErrors($errors);
+        }
+
+        $doctrine->persist($user);
+        //dd($DataToUpdate);
+        $doctrine->flush();
+
+        return $this->json(
+            // les données à transformer en JSON
+            $user,
+            // HTTP STATUS CODE
+            Response::HTTP_OK,
+            // HTTP headers supplémentaires, d
+            [],
+            // Contexte de serialisation
+            ['groups'=> 'user']
+        );
+    }
+
+    /**
+     * @Route("/delete/{id}", name="api_user_delete", methods={"DELETE"})
+     */
+    public function deleteUser(EntityManagerInterface $doctrine, UserRepository $userRepo, $id)
+    {
+        $user = $userRepo->find($id);
+
+        $doctrine->remove($user);
+        $doctrine->flush();
+
+        return $this->json(
+            // les données à transformer en JSON
+            $user,
+            // HTTP STATUS CODE
+            Response::HTTP_OK,
+            // HTTP headers supplémentaires, d
+            [],
+            // Contexte de serialisation
+            ['groups'=> 'user']
+        );
+    }
 }

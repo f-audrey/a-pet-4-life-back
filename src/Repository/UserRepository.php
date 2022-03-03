@@ -75,8 +75,9 @@ class UserRepository extends ServiceEntityRepository
             FROM App\Entity\User u
             JOIN u.assoSpecies a
             JOIN a.species s
-            WHERE (u.$geolocation = '$responseLocation' AND s.name = '$species')"
-        );}
+            WHERE u.$geolocation = :responseLocation AND s.name = '$species'");
+
+            $request->setParameter('responseLocation', $responseLocation);}
 
         else if (isset($geolocation, $responseLocation)){
         $request = $entityManager->createQuery(
@@ -84,8 +85,9 @@ class UserRepository extends ServiceEntityRepository
             FROM App\Entity\User u
             JOIN u.assoSpecies a
             JOIN a.species s
-            WHERE (u.$geolocation = '$responseLocation')"
-        );}
+            WHERE u.$geolocation = :responseLocation");
+
+            $request->setParameter('responseLocation', $responseLocation);}
 
         else if (isset($species)){
             $request = $entityManager->createQuery(
@@ -93,8 +95,8 @@ class UserRepository extends ServiceEntityRepository
                 FROM App\Entity\User u
                 JOIN u.assoSpecies a
                 JOIN a.species s
-                WHERE (s.name = '$species')"
-            );};
+                WHERE (s.name = '$species')");
+        };
 
         $resultats = $request->getResult();
 
