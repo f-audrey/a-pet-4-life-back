@@ -7,7 +7,6 @@ use App\DataFixtures\Provider\AssociationProvider;
 use App\DataFixtures\Provider\RegionProvider;
 use App\DataFixtures\Provider\SpeciesProvider;
 use App\Entity\Animal;
-use App\Entity\AssoSpecies;
 use App\Entity\Species;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\DBAL\Connection;
@@ -105,6 +104,11 @@ class AppFixtures extends Fixture
 
             $user->setMail($user->getSlug() . '@exemple.com');
             $user->setWebsite('https:://fake-' . $user->getSlug() . '.com');
+            for ($g = 1; $g <= mt_rand(1, 3); $g++) {
+                $randomSpecies = $allSpeciesEntity[mt_rand(0, count($allSpeciesEntity) - 1)];
+                $user->addSpecies($randomSpecies);
+            }
+        
             $allAssociationsEntity[] = $user;
             }
 
@@ -131,20 +135,6 @@ class AppFixtures extends Fixture
         $manager->persist($user);
     }
     
-    /* ============== ASSO_SPECIES ==============  */
-
-    for ($i=0; $i < 50; $i++) {
-    
-    $assoSpecies = new AssoSpecies;
-
-    $randomUser = $allAssociationsEntity[mt_rand(0, count($allAssociationsEntity) - 1)];
-    $assoSpecies->setUser($randomUser);
-
-    $randomSpecies = $allSpeciesEntity[mt_rand(0, count($allSpeciesEntity) - 1)];
-    $assoSpecies->setSpecies($randomSpecies);
-    
-    $manager->persist($assoSpecies);
-    }
     
     /* ============== ANIMALS ==============  */
     $allAnimalsEntity = [];
