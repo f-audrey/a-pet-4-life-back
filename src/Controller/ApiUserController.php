@@ -112,7 +112,7 @@ class ApiUserController extends AbstractController
             $userRepo->findAllBySearch($newSearch->getGeolocation(), $newSearch->getResponseLocation(), $newSearch->getSpecies() ),
             200,
             [],
-            ['Groups' => 'search']
+            ['groups' => 'search']
         );
     }
 

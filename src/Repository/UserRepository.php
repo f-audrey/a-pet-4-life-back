@@ -59,7 +59,7 @@ class UserRepository extends ServiceEntityRepository
         
     }
 
-    public function findAllBySearch($geolocation = null, $responseLocation = null, $species = null)
+    public function findAllBySearch($geolocation = null, $responseLocation = null, $species = null, $assoSpecies = null)
     {
         $entityManager = $this->getEntityManager();
 
@@ -69,38 +69,38 @@ class UserRepository extends ServiceEntityRepository
         $responseLocation = la valeur que l'input (choix utilisateur);
         $species = l'espèce choisi par l'utilisateur; */
 
-        if (isset($geolocation, $responseLocation, $species)){
+/*         if (isset($geolocation, $responseLocation, $species)){
         $request = $entityManager->createQuery(
-            "SELECT u.type, u.name as userName, u.description, u.region, u.city, u.department, u.picture, s.name as speciesName
+            "SELECT u
             FROM App\Entity\User u
-            JOIN u.assoSpecies a
-            JOIN a.species s
-            WHERE u.$geolocation = :responseLocation AND s.name = '$species'");
+            JOIN assoSpecies a
+            JOIN species s
+            WHERE u.$geolocation = :responseLocation AND u.a.s.name = '$species'");
 
-            $request->setParameter('responseLocation', $responseLocation);}
+            $request->setParameter('responseLocation', $responseLocation);} */
 
-        else if (isset($geolocation, $responseLocation)){
+        if (isset($geolocation, $responseLocation)){
         $request = $entityManager->createQuery(
-            "SELECT u.type, u.name as userName, u.description, u.region, u.city, u.department, u.picture, s.name as speciesName
+            "SELECT u
             FROM App\Entity\User u
-            JOIN u.assoSpecies a
-            JOIN a.species s
             WHERE u.$geolocation = :responseLocation");
 
             $request->setParameter('responseLocation', $responseLocation);}
-
+/* 
         else if (isset($species)){
             $request = $entityManager->createQuery(
-                "SELECT u.type, u.name as userName, u.description, u.region, u.city, u.department, u.picture, s.name as speciesName
-                FROM App\Entity\User u
-                JOIN u.assoSpecies a
-                JOIN a.species s
-                WHERE (s.name = '$species')");
-        };
+            "SELECT u
+            FROM App\Entity\User u
+            JOIN assoSpecies a
+            JOIN species s
+            WHERE u.a.s.name = '$species'");
+        }; */
+        
 
         $resultats = $request->getResult();
 
         return $resultats;
     }
+
 
 }
