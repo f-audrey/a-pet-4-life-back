@@ -32,20 +32,21 @@ class Species
      */
     private $name;
 
-    /**
-     * @ORM\OneToMany(targetEntity=AssoSpecies::class, mappedBy="species")
-     */
-    private $assoSpecies;
 
     /**
      * @ORM\OneToMany(targetEntity=Animal::class, mappedBy="species")
      */
     private $animals;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="species")
+     */
+    private $users;
+
     public function __construct()
     {
-        $this->assoSpecies = new ArrayCollection();
         $this->animals = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -61,36 +62,6 @@ class Species
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, AssoSpecies>
-     */
-    public function getAssoSpecies(): Collection
-    {
-        return $this->assoSpecies;
-    }
-
-    public function addAssoSpecies(AssoSpecies $assoSpecies): self
-    {
-        if (!$this->assoSpecies->contains($assoSpecies)) {
-            $this->assoSpecies[] = $assoSpecies;
-            $assoSpecies->setSpecies($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAssoSpecies(AssoSpecies $assoSpecies): self
-    {
-        if ($this->assoSpecies->removeElement($assoSpecies)) {
-            // set the owning side to null (unless already changed)
-            if ($assoSpecies->getSpecies() === $this) {
-                $assoSpecies->setSpecies(null);
-            }
-        }
 
         return $this;
     }
@@ -120,6 +91,33 @@ class Species
             if ($animal->getSpecies() === $this) {
                 $animal->setSpecies(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->addSpecies($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->removeElement($user)) {
+            $user->removeSpecies($this);
         }
 
         return $this;

@@ -185,14 +185,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $slug;
 
     /**
-     * @ORM\OneToMany(targetEntity=AssoSpecies::class, mappedBy="user")
-     * @Groups({"association"})
-     * @Groups({"search"})
-     * @Groups({"list_associations"})
-     */
-    private $assoSpecies;
-
-    /**
      * @ORM\OneToMany(targetEntity=Animal::class, mappedBy="user", orphanRemoval=true)
      * @Groups({"association"})
      */
@@ -208,14 +200,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $receivesReview;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Species::class, inversedBy="users")
+     */
+    private $species;
+
     public function __construct()
     {
         $this->status = "true";
 
-        $this->assoSpecies = new ArrayCollection();
         $this->animals = new ArrayCollection();
         $this->postReview = new ArrayCollection();
         $this->receivesReview = new ArrayCollection();
+        $this->species = new ArrayCollection();
     }
 
 
@@ -429,36 +426,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, AssoSpecies>
-     */
-    public function getAssoSpecies(): Collection
-    {
-        return $this->assoSpecies;
-    }
-
-    public function addAssoSpecies(AssoSpecies $assoSpecies): self
-    {
-        if (!$this->assoSpecies->contains($assoSpecies)) {
-            $this->assoSpecies[] = $assoSpecies;
-            $assoSpecies->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAssoSpecies(AssoSpecies $assoSpecies): self
-    {
-        if ($this->assoSpecies->removeElement($assoSpecies)) {
-            // set the owning side to null (unless already changed)
-            if ($assoSpecies->getUser() === $this) {
-                $assoSpecies->setUser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, Animal>
      */
     public function getAnimals(): Collection
@@ -618,6 +585,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection<int, Species>
+     */
+    public function getSpecies(): Collection
+    {
+        return $this->species;
+    }
+
+    public function addSpecies(Species $species): self
+    {
+        if (!$this->species->contains($species)) {
+            $this->species[] = $species;
+        }
+
+        return $this;
+    }
+
+    public function removeSpecies(Species $species): self
+    {
+        $this->species->removeElement($species);
+
+        return $this;
     }
 
 }
