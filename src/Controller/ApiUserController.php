@@ -25,12 +25,12 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 
 /**
-     * @Route("/api/user")
+     * @Route("/api/")
      */
 class ApiUserController extends AbstractController
 {
     /**
-     * @Route("/associations", name="api_user_list_associations", methods={"GET"})
+     * @Route("user/associations", name="api_user_list_associations", methods={"GET"})
      */
     public function showAllAssociations(UserRepository $userRepository): Response
     {
@@ -47,7 +47,7 @@ class ApiUserController extends AbstractController
     }
 
     /**
-     * @Route("/association/{slug}", name="api_user_association", methods={"GET"})
+     * @Route("user/association/{slug}", name="api_user_association", methods={"GET"})
      */
     public function showOneAssociation(UserRepository $userRepo, $slug): Response
     {
@@ -66,7 +66,7 @@ class ApiUserController extends AbstractController
     }
 
     /**
-     * @Route("/create", name="api_user_create", methods={"POST"})
+     * @Route("user/create", name="api_user_create", methods={"POST"})
      */
     public function createUser(EntityManagerInterface $doctrine, Request $request, SerializerInterface $serializer, ValidatorInterface $validator, MySlugger $slugger, UserPasswordHasherInterface $hasher): Response
     {
@@ -108,7 +108,7 @@ class ApiUserController extends AbstractController
     }
 
     /**
-     * @Route("/search", name="api_user_search", methods={"GET"})
+     * @Route("user/search", name="api_user_search", methods={"GET"})
      */
     public function search(UserRepository $userRepo, Request $request, SerializerInterface $serializer): Response
     {
@@ -140,7 +140,7 @@ class ApiUserController extends AbstractController
     }
 
         /**
-     * @Route("/update/{id}", name="api_user_update", methods={"PATCH"})
+     * @Route("secure/user/update/{id}", name="api_user_update", methods={"PATCH"})
      */
     public function updateUser(EntityManagerInterface $doctrine, Request $request, SerializerInterface $serializer, ValidatorInterface $validator, UserRepository $userRepo, int $id)
     {
@@ -178,7 +178,7 @@ class ApiUserController extends AbstractController
     }
 
     /**
-     * @Route("/delete/{id}", name="api_user_delete", methods={"DELETE"})
+     * @Route("secure/user/delete/{id}", name="api_user_delete", methods={"DELETE"})
      */
     public function deleteUser(EntityManagerInterface $doctrine, UserRepository $userRepo, $id)
     {
