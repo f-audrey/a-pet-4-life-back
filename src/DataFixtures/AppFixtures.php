@@ -104,11 +104,53 @@ class AppFixtures extends Fixture
 
             $user->setMail($user->getSlug() . '@exemple.com');
             $user->setWebsite('https:://fake-' . $user->getSlug() . '.com');
+
+            $allSpeciesAssocEntity = [];
             for ($g = 1; $g <= mt_rand(1, 3); $g++) {
                 $randomSpecies = $allSpeciesEntity[mt_rand(0, count($allSpeciesEntity) - 1)];
                 $user->addSpecies($randomSpecies);
+                $allSpeciesAssocEntity[] = $randomSpecies;
             }
 
+                /* ============== ANIMALS ==============  */
+                $allAnimalsEntity = [];
+                for($a = 1; $a <= mt_rand(1, 10); $a++) {
+                        
+                $animal = new Animal;
+
+                $animal->setName($animalProvider->randAnimal());
+
+                $sexe = rand (1,2) == 1 ? 'Female' : 'Male';
+                $animal->setSexe($sexe);
+
+                $animal->setDescription($faker->text());
+
+                $status = rand (1,3);
+                switch ($status) {
+                    case 1:
+                        "junior";
+                        break;
+                    case 2:
+                        "adulte";
+                        break;
+                    case 3:
+                        "senior";
+                        break;
+                }
+                $animal->setStatus($status);
+
+                /* $randomUser = $allAssociationsEntity[mt_rand(0, count($allAssociationsEntity) - 1)];
+                $animal->setUser($randomUser); */
+                
+                $randomSpecies = $allSpeciesAssocEntity[mt_rand(0, count($allSpeciesAssocEntity) - 1)];
+                $animal->setSpecies($randomSpecies);
+
+                $allAnimalsEntity[] = $animal;
+                $user->addAnimal($animal);
+
+                $manager->persist($animal);
+                }
+        
             $user->setRoles(['ROLE_ASSO']);
         
             $allAssociationsEntity[] = $user;
@@ -137,44 +179,6 @@ class AppFixtures extends Fixture
         $manager->persist($user);
     }
     
-    
-    /* ============== ANIMALS ==============  */
-    $allAnimalsEntity = [];
-    for($i = 0; $i < 100; $i ++) {
-            
-    $animal = new Animal;
-
-    $animal->setName($animalProvider->randAnimal());
-
-    $sexe = rand (1,2) == 1 ? 'Female' : 'male';
-    $animal->setSexe($sexe);
-
-    $animal->setDescription($faker->text());
-
-    $status = rand (1,3);
-    switch ($status) {
-        case 1:
-            "junior";
-            break;
-        case 2:
-            "adulte";
-            break;
-        case 3:
-            "senior";
-            break;
-    }
-    $animal->setStatus($status);
-
-    $randomUser = $allAssociationsEntity[mt_rand(0, count($allAssociationsEntity) - 1)];
-    $animal->setUser($randomUser);
-
-    $randomSpecies = $allSpeciesEntity[mt_rand(0, count($allSpeciesEntity) - 1)];
-    $animal->setSpecies($randomSpecies);
-
-    $allAnimalsEntity[] = $animal;
-    $manager->persist($animal);
-}
-
 $users = [
     [
         'login' => 'admin@admin.com',
@@ -186,8 +190,11 @@ $users = [
 foreach ($users as $currentUser)
 {
     $newUser = new User();
+    $type = 'Administrateur';
+    $newUser->setType($type);
     $newUser->setMail($currentUser['login']); 
     $newUser->setRoles([$currentUser['roles']]);
+    $newUser->setDepartment('null');
 
     $hashedPassword = $this->hasher->hashPassword(
         $newUser,
