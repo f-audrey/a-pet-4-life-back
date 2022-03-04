@@ -11,6 +11,7 @@
 - Remplacer par le user, mdp et nom de base de donnée
 - Créer la bdd dans adminer (qui correspondent bien avec les noms mis dans le .env.local)
 - Optionnel: Faire un privilège pour la base de donnée
+- Supprimer les tables de la bdd(si elle est déjà existante)
 - Taper dans le terminal: php bin/console d:m:m
 - Taper dans le terminal: php bin/console d:f:l
 - php bin/console lexik:jwt:generate-keypair (génère la clé d'accès pour l'api)
