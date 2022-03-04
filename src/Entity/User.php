@@ -210,6 +210,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\ManyToMany(targetEntity=Species::class, inversedBy="users")
+     * @Groups({"association"})
      * @Groups({"search"})
      */
     private $species;
