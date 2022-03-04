@@ -73,6 +73,29 @@ class AppFixtures extends Fixture
         $allSpeciesEntity[] = $newSpecies;
         $manager->persist($newSpecies);
     }
+    /* ============== GEOLOCATION ==============  */
+    $dataGeolocation = [
+        [69001, 'Lyon', 'Rhône','Auvergne-Rhône-Alpes'],
+        [39100, 'Dole', 'Jura','Bourgogne-Franche-Comté'],
+        [29200, 'Brest', 'Finistère','Bretagne'],
+        [45250, 'Briare', 'Loiret','Centre-Val de Loire'],
+        [20000, 'Ajaccio', 'Corse-du-Sud','Corse'],
+        [20600, 'Bastia', 'Haute-Corse','Corse'],
+        [57000, 'Metz', 'Moselle','Grand Est'],
+        [62000, 'Arras', 'Pas-de-Calais','Hauts-de-France'],
+        [93370, 'Montfermeil', 'Seine-Saint-Denis','Ile-de-France'],
+        [14118, 'Caen', 'Calvados','Normandie'],
+        [86000, 'Poitiers', 'Vienne','Nouvelle-Aquitaine'],
+        [46500, 'Rocamadour', 'Lot','Occitanie'],
+        [44190, 'Clisson', 'Loire-Atlantique','Pays de la Loire'],
+        [85600, 'Montaigu', 'Vendée','Pays de la Loire'],
+        [06000, 'Nice', 'Alpes-Maritimes','Provence-Alpes-Côte d’Azur'],
+        [97100, 'Basse-Terre', 'Guadeloupe','Guadeloupe'],
+        [97200, 'Fort-de-France', 'Martinique','Martinique'],
+        [97300, 'Cayenne', 'Guyane','Guyane'],
+        [97400, 'Saint-Denis', 'La Réunion','La Réunion'],
+        [97611, 'Mamoudzou', 'Mayotte','Mayotte'],
+    ];
 
     /* ============== USER ==============  */
 
@@ -80,7 +103,7 @@ class AppFixtures extends Fixture
     $allAssociationsEntity = [];
     $allParticularEntity = [];
     
-    for ($i = 1; $i<= 25; $i++)
+    for ($i = 1; $i<= 50; $i++)
     {
         $user = new User;
 
@@ -88,13 +111,15 @@ class AppFixtures extends Fixture
 
         $user->setType($type);
 
+        $randDataGeolocation = mt_rand(0, count($dataGeolocation) - 1);
+
         if ( $type === "Association"){
             $user->setName($associationProvider->randAssociation());
             $user->setSiret($faker->siret());
             $user->setAdress($faker->streetAddress());
-            $user->setZipcode(Address::postcode());
-            $user->setCity($faker->city());
-            $user->setRegion($regionProvider->randRegion());
+            $user->setZipcode($dataGeolocation[$randDataGeolocation]['0']);
+            $user->setCity($dataGeolocation[$randDataGeolocation]['1']);
+            $user->setRegion($dataGeolocation[$randDataGeolocation]['3']);
             $user->setPhoneNumber($faker->phoneNumber());
             $user->setDescription($faker->text());
             $user->setPicture(' https://placekitten.com/500/' . mt_rand(500, 600));
@@ -138,9 +163,6 @@ class AppFixtures extends Fixture
                         break;
                 }
                 $animal->setStatus($status);
-
-                /* $randomUser = $allAssociationsEntity[mt_rand(0, count($allAssociationsEntity) - 1)];
-                $animal->setUser($randomUser); */
                 
                 $randomSpecies = $allSpeciesAssocEntity[mt_rand(0, count($allSpeciesAssocEntity) - 1)];
                 $animal->setSpecies($randomSpecies);
@@ -163,7 +185,7 @@ class AppFixtures extends Fixture
             $allParticularEntity[] = $user;
         }
 
-        $user->setDepartment($faker->departmentName());
+        $user->setDepartment($dataGeolocation[$randDataGeolocation]['2']);
 
         
         $password = $this->hasher->hashPassword($user, 'password');
