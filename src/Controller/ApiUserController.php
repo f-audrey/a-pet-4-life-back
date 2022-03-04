@@ -21,6 +21,8 @@ use App\Models\Search;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpKernel\EventListener\ResponseListener;
 use Symfony\Component\HttpKernel\HttpClientKernel;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 
 /**
      * @Route("/api/user")
@@ -66,7 +68,7 @@ class ApiUserController extends AbstractController
     /**
      * @Route("/create", name="api_user_create", methods={"POST"})
      */
-    public function createUser(EntityManagerInterface $doctrine, Request $request, SerializerInterface $serializer, ValidatorInterface $validator, MySlugger $slugger): Response
+    public function createUser(EntityManagerInterface $doctrine, Request $request, SerializerInterface $serializer, ValidatorInterface $validator, MySlugger $slugger, UserPasswordHasherInterface $hasher): Response
     {
 
         $data = $request->getContent();
@@ -83,6 +85,9 @@ class ApiUserController extends AbstractController
             $myJsonErrors = new JsonError(Response::HTTP_UNPROCESSABLE_ENTITY, "Des erreurs de validation ont été trouvés");
             $myJsonErrors->setValidationErrors($errors);
         }
+        
+        $userHasher = $hasher->hashPassword($newUser, $newUser->getPassword());
+        $newUser->setPassword($userHasher);
 
         $slug = $slugger->slugify($newUser->getName());
         $newUser->setSlug($slug);
