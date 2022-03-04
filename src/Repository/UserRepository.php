@@ -68,37 +68,16 @@ class UserRepository extends ServiceEntityRepository
         $responseLocation = la valeur que l'input (choix utilisateur);
         $species = l'espèce choisi par l'utilisateur; */
 
-        /* if (isset($geolocation, $responseLocation, $species)){
-        $request = $entityManager->createQuery(
-            "SELECT u
-            FROM App\Entity\User u
-            JOIN assoSpecies a
-            JOIN species s
-            WHERE u.$geolocation = :responseLocation AND u.a.s.name = '$species'");
-
-            $request->setParameter('responseLocation', $responseLocation);} */
-
         if (isset($geolocation, $responseLocation)){
         $request = $entityManager->createQuery(
             "SELECT u
             FROM App\Entity\User u
-            WHERE u.$geolocation = :responseLocation");
+            WHERE u.type = 'Association' AND u.$geolocation = :responseLocation");
 
             $request->setParameter('responseLocation', $responseLocation);}
-
-        /* else if (isset($species)){
-            $request = $entityManager->createQuery(
-            "SELECT u
-            FROM App\Entity\User u
-            JOIN assoSpecies a
-            JOIN species s
-            WHERE u.a.s.name = '$species'");
-        }; */
 
         $resultats = $request->getResult();
 
         return $resultats;
     }
-
-
 }
