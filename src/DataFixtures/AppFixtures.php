@@ -108,6 +108,8 @@ class AppFixtures extends Fixture
                 $randomSpecies = $allSpeciesEntity[mt_rand(0, count($allSpeciesEntity) - 1)];
                 $user->addSpecies($randomSpecies);
             }
+
+            $user->setRoles(['ROLE_ASSO']);
         
             $allAssociationsEntity[] = $user;
             }
@@ -171,6 +173,29 @@ class AppFixtures extends Fixture
 
     $allAnimalsEntity[] = $animal;
     $manager->persist($animal);
+}
+
+$users = [
+    [
+        'login' => 'admin@admin.com',
+        'password' => 'admin',
+        'roles' => 'ROLE_ADMIN',
+    ]
+];
+
+foreach ($users as $currentUser)
+{
+    $newUser = new User();
+    $newUser->setMail($currentUser['login']); 
+    $newUser->setRoles([$currentUser['roles']]);
+
+    $hashedPassword = $this->hasher->hashPassword(
+        $newUser,
+        $currentUser['password']
+    );
+    $newUser->setPassword($hashedPassword);
+
+    $manager->persist($newUser);
 }
     
     /* ============== REVIEWS ==============  */
