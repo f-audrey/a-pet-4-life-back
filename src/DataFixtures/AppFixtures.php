@@ -40,7 +40,6 @@ class AppFixtures extends Fixture
         $this->connexion->executeQuery('TRUNCATE TABLE species');
         $this->connexion->executeQuery('TRUNCATE TABLE user');
         $this->connexion->executeQuery('TRUNCATE TABLE animal');
-
     }
     public function load(ObjectManager $manager): void
     {
@@ -53,75 +52,102 @@ class AppFixtures extends Fixture
         $regionProvider = new RegionProvider();
         $animalProvider = new AnimalProvider();
 
-    /* ============== SPECIES ==============  */
-    $allSpeciesEntity = [];
-    // Tableau des espèces
-    $species = [
-        'Chat',
-        'Chien',
-        'Lapin',
-        'Cheval',
-        'Rongeur',
-        'Serpent',
-    ];
+        /* ============== SPECIES ==============  */
+        $allSpeciesEntity = [];
+        // Tableau des espèces
+        $species = [
+            'Chat',
+            'Chien',
+            'Lapin',
+            'Cheval',
+            'Rongeur',
+            'Serpent',
+        ];
 
-    foreach($species as $espèce)
-    {
-        $newSpecies = new Species;
-        $newSpecies->setName($espèce);
+        foreach ($species as $espèce) {
+            $newSpecies = new Species;
+            $newSpecies->setName($espèce);
 
-        $allSpeciesEntity[] = $newSpecies;
-        $manager->persist($newSpecies);
-    }
-    /* ============== GEOLOCATION ==============  */
-    $dataGeolocation = [
-        [69001, 'Lyon', 'Rhône','Auvergne-Rhône-Alpes'],
-        [39100, 'Dole', 'Jura','Bourgogne-Franche-Comté'],
-        [29200, 'Brest', 'Finistère','Bretagne'],
-        [45250, 'Briare', 'Loiret','Centre-Val de Loire'],
-        [20000, 'Ajaccio', 'Corse-du-Sud','Corse'],
-        [20600, 'Bastia', 'Haute-Corse','Corse'],
-        [57000, 'Metz', 'Moselle','Grand Est'],
-        [62000, 'Arras', 'Pas-de-Calais','Hauts-de-France'],
-        [93370, 'Montfermeil', 'Seine-Saint-Denis','Ile-de-France'],
-        [14118, 'Caen', 'Calvados','Normandie'],
-        [86000, 'Poitiers', 'Vienne','Nouvelle-Aquitaine'],
-        [46500, 'Rocamadour', 'Lot','Occitanie'],
-        [44190, 'Clisson', 'Loire-Atlantique','Pays de la Loire'],
-        [85600, 'Montaigu', 'Vendée','Pays de la Loire'],
-        [06000, 'Nice', 'Alpes-Maritimes','Provence-Alpes-Côte d’Azur'],
-        [97100, 'Basse-Terre', 'Guadeloupe','Guadeloupe'],
-        [97200, 'Fort-de-France', 'Martinique','Martinique'],
-        [97300, 'Cayenne', 'Guyane','Guyane'],
-        [97400, 'Saint-Denis', 'La Réunion','La Réunion'],
-        [97611, 'Mamoudzou', 'Mayotte','Mayotte'],
-    ];
+            $allSpeciesEntity[] = $newSpecies;
+            $manager->persist($newSpecies);
+        }
+        /* ============== GEOLOCATION ==============  */
+        $dataGeolocation = [
+            [69001, 'Lyon', 'Rhône', 'Auvergne-Rhône-Alpes'],
+            [39100, 'Dole', 'Jura', 'Bourgogne-Franche-Comté'],
+            [29200, 'Brest', 'Finistère', 'Bretagne'],
+            [45250, 'Briare', 'Loiret', 'Centre-Val de Loire'],
+            [20000, 'Ajaccio', 'Corse-du-Sud', 'Corse'],
+            [20600, 'Bastia', 'Haute-Corse', 'Corse'],
+            [57000, 'Metz', 'Moselle', 'Grand Est'],
+            [62000, 'Arras', 'Pas-de-Calais', 'Hauts-de-France'],
+            [93370, 'Montfermeil', 'Seine-Saint-Denis', 'Ile-de-France'],
+            [14118, 'Caen', 'Calvados', 'Normandie'],
+            [86000, 'Poitiers', 'Vienne', 'Nouvelle-Aquitaine'],
+            [46500, 'Rocamadour', 'Lot', 'Occitanie'],
+            [44190, 'Clisson', 'Loire-Atlantique', 'Pays de la Loire'],
+            [85600, 'Montaigu', 'Vendée', 'Pays de la Loire'],
+            [06000, 'Nice', 'Alpes-Maritimes', 'Provence-Alpes-Côte d’Azur'],
+            [97100, 'Basse-Terre', 'Guadeloupe', 'Guadeloupe'],
+            [97200, 'Fort-de-France', 'Martinique', 'Martinique'],
+            [97300, 'Cayenne', 'Guyane', 'Guyane'],
+            [97400, 'Saint-Denis', 'La Réunion', 'La Réunion'],
+            [97611, 'Mamoudzou', 'Mayotte', 'Mayotte'],
+        ];
 
-    /* ============== USER ==============  */
+        /* ============== USER ==============  */
 
-    $allUserEntity = [];
-    $allAssociationsEntity = [];
-    $allParticularEntity = [];
-    
-    for ($i = 1; $i<= 50; $i++)
-    {
-        $user = new User;
+        $allUserEntity = [];
+        $allAssociationsEntity = [];
+        $allParticularEntity = [];
 
-        $type = rand (1,2) == 1 ? 'Association' : 'Particular';
+        $associations = [
+            'Ass\'O Pet',
+            'Adopte un Pet',
+            'Adopte une patte',
+            'Get A Pet',
+            'Carapatte',
+            'Find Your Pet',
+            'Anim\' Assoc',
+            'Save a Pet',
+            'Ton futur Pet',
+            'A Pet For Life',
+            'Donne moi ta patte',
+            'A ton Poney',
+            'Les Animaux Pottés',
+            'L\'arche de Noé',
+            'SOS Animaux',
+            '1000 Moustaches',
+            'Mission Adoption',
+            'Arist\' O\'Chats',
+            'Aidofélins',
+            'Les Grosses Patounes',
+            'Hop, hop, hop on adopte !',
+            'Les Griffes du Coeur',
+            'Les Petites Patounes',
+            'Meetic Pets',
+            'Meet Ton Pet'
+        ];
 
-        $user->setType($type);
+        foreach ($associations as $association) {
+            $user = new User;
 
-        $randDataGeolocation = mt_rand(0, count($dataGeolocation) - 1);
+            $type = 'Association';
+            $user->setType($type);
 
-        if ( $type === "Association"){
-            $user->setName($associationProvider->randAssociation());
+            $randDataGeolocation = mt_rand(0, count($dataGeolocation) - 1);
+
+            $user->setName($association);
             $user->setSiret($faker->siret());
             $user->setAdress($faker->streetAddress());
             $user->setZipcode($dataGeolocation[$randDataGeolocation]['0']);
             $user->setCity($dataGeolocation[$randDataGeolocation]['1']);
+            $user->setDepartment($dataGeolocation[$randDataGeolocation]['2']);
             $user->setRegion($dataGeolocation[$randDataGeolocation]['3']);
             $user->setPhoneNumber($faker->phoneNumber());
             $user->setDescription($faker->text());
+            $status = rand(1, 2) == 1 ? 'true' : 'false';
+            $user->setStatus($status);
             $user->setPicture(' https://placekitten.com/500/' . mt_rand(500, 600));
 
             $slug = $this->slugger->slugify($user->getName());
@@ -130,108 +156,111 @@ class AppFixtures extends Fixture
             $user->setMail($user->getSlug() . '@exemple.com');
             $user->setWebsite('https:://fake-' . $user->getSlug() . '.com');
 
-            $allSpeciesAssocEntity = [];
-            for ($g = 1; $g <= mt_rand(1, 3); $g++) {
-                $randomSpecies = $allSpeciesEntity[mt_rand(0, count($allSpeciesEntity) - 1)];
-                $user->addSpecies($randomSpecies);
-                $allSpeciesAssocEntity[] = $randomSpecies;
-            }
+            $password = $this->hasher->hashPassword($user, 'password');
+            $user->setPassword($password);
+
+            $user->setRoles(['ROLE_ASSO']);
+
+                $allSpeciesAssocEntity = [];
+                for ($g = 1; $g <= mt_rand(1, 3); $g++) {
+                    $randomSpecies = $allSpeciesEntity[mt_rand(0, count($allSpeciesEntity) - 1)];
+                    $user->addSpecies($randomSpecies);
+                    $allSpeciesAssocEntity[] = $randomSpecies;
+                }
 
                 /* ============== ANIMALS ==============  */
                 $allAnimalsEntity = [];
-                for($a = 1; $a <= mt_rand(1, 10); $a++) {
-                        
-                $animal = new Animal;
+                for ($a = 1; $a <= mt_rand(1, 10); $a++) {
 
-                $animal->setName($animalProvider->randAnimal());
+                    $animal = new Animal;
 
-                $sexe = rand (1,2) == 1 ? 'Female' : 'Male';
-                $animal->setSexe($sexe);
+                    $animal->setName($animalProvider->randAnimal());
 
-                $animal->setDescription($faker->text());
+                    $sexe = rand(1, 2) == 1 ? 'Female' : 'Male';
+                    $animal->setSexe($sexe);
 
-                $status = rand (1,3);
-                switch ($status) {
-                    case 1:
-                        "junior";
-                        break;
-                    case 2:
-                        "adulte";
-                        break;
-                    case 3:
-                        "senior";
-                        break;
+                    $animal->setDescription($faker->text());
+
+                    $status = rand(1, 3);
+                    switch ($status) {
+                        case 1:
+                            "junior";
+                            break;
+                        case 2:
+                            "adulte";
+                            break;
+                        case 3:
+                            "senior";
+                            break;
+                    }
+                    $animal->setStatus($status);
+
+                    $randomSpecies = $allSpeciesAssocEntity[mt_rand(0, count($allSpeciesAssocEntity) - 1)];
+                    $animal->setSpecies($randomSpecies);
+
+                    $allAnimalsEntity[] = $animal;
+                    $user->addAnimal($animal);
+
+                    $manager->persist($animal);
                 }
-                $animal->setStatus($status);
-                
-                $randomSpecies = $allSpeciesAssocEntity[mt_rand(0, count($allSpeciesAssocEntity) - 1)];
-                $animal->setSpecies($randomSpecies);
 
-                $allAnimalsEntity[] = $animal;
-                $user->addAnimal($animal);
-
-                $manager->persist($animal);
-                }
-        
-            $user->setRoles(['ROLE_ASSO']);
-        
             $allAssociationsEntity[] = $user;
-            }
-
-        if ( $type === "Particular") {
-            $user->setFirstname($faker->firstName());
-            $user->setLastname($faker->lastName());
-            $user->setMail($user->getFirstname() . $user->getLastname() . '@exemple.com');
-            $allParticularEntity[] = $user;
+            $manager->persist($user);
         }
 
-        $user->setDepartment($dataGeolocation[$randDataGeolocation]['2']);
+        for ($i = 1; $i <= 25; $i++) {
+            $user = new User;
+            $randDataGeolocation = mt_rand(0, count($dataGeolocation) - 1);
 
-        
-        $password = $this->hasher->hashPassword($user, 'password');
-        $user->setPassword($password);
+            $type = 'Particular';
+            $user->setType($type);
+            $user->setFirstname($faker->firstName());
+            $user->setLastname($faker->lastName());
+            $user->setDepartment($dataGeolocation[$randDataGeolocation]['2']);
 
-        $status = rand (1,2) == 1 ? 'true' : 'false';
+            $user->setMail($user->getFirstname() . $user->getLastname() . '@exemple.com');
 
-        $user->setStatus($status);
-        $user->setRoles(['ROLE_USER']);
+            $password = $this->hasher->hashPassword($user, 'password');
+            $user->setPassword($password);
 
-        $allUserEntity[] = $user;
+            $status = rand(1, 2) == 1 ? 'true' : 'false';
+            $user->setStatus($status);
 
-        $manager->persist($user);
-    }
-    
-$users = [
-    [
-        'login' => 'admin@admin.com',
-        'password' => 'admin',
-        'roles' => 'ROLE_ADMIN',
-    ]
-];
+            $user->setRoles(['ROLE_USER']);
+            $allParticularEntity[] = $user;
+            $manager->persist($user);
+        }
 
-foreach ($users as $currentUser)
-{
-    $newUser = new User();
-    $type = 'Administrateur';
-    $newUser->setType($type);
-    $newUser->setMail($currentUser['login']); 
-    $newUser->setRoles([$currentUser['roles']]);
-    $newUser->setDepartment('null');
+        $users = [
+            [
+                'login' => 'admin@admin.com',
+                'password' => 'admin',
+                'roles' => 'ROLE_ADMIN',
+            ]
+        ];
 
-    $hashedPassword = $this->hasher->hashPassword(
-        $newUser,
-        $currentUser['password']
-    );
-    $newUser->setPassword($hashedPassword);
+        foreach ($users as $currentUser) {
+            $newUser = new User();
+            $type = 'Administrateur';
+            $newUser->setType($type);
+            $newUser->setMail($currentUser['login']);
+            $newUser->setRoles([$currentUser['roles']]);
+            $newUser->setDepartment('null');
 
-    $manager->persist($newUser);
-}
-    
-    /* ============== REVIEWS ==============  */
-    /* for($i = 0; $i < 100; $i ++) {
+            $hashedPassword = $this->hasher->hashPassword(
+                $newUser,
+                $currentUser['password']
+            );
+            $newUser->setPassword($hashedPassword);
+
+            $manager->persist($newUser);
+        }
+
+        /* ============== REVIEWS ==============  */
+        /* for($i = 0; $i < 100; $i ++) {
         
     } */
 
-    $manager->flush();
+        $manager->flush();
     }
 }
