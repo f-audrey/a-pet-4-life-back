@@ -198,4 +198,30 @@ class ApiUserController extends AbstractController
             ['groups'=> 'user']
         );
     }
+
+    /**
+     * @Route("secure/user/profile/{id}", name="app_profil", methods={"GET"})
+     */
+    public function profile(User $user): Response
+    {
+
+        return $this->json(
+            // les données à transformer en JSON
+            $user,
+            // HTTP STATUS CODE
+            200,
+            // HTTP headers supplémentaires, d
+            [],
+            // Contexte de serialisation
+            ['groups'=> 'user']
+        );
+    }
+
+    /**
+     * @Route("secure/user/logout", name="app_logout")
+     */
+    public function logout(): void
+    {
+        throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+    }
 }
