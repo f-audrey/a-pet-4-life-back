@@ -70,7 +70,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $siret;
 
     /**
-     * @ORM\Column(type="string", length=180)
+     * @ORM\Column(type="string", length=180, unique=true)
      * @Groups({"association"})
      * @Groups({"user"})
      * @Groups({"animal"})
@@ -551,6 +551,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
+        if ($this->type = 'Association'){
+            $roles[] = 'ROLE_ASSO';
+        }
 
         return array_unique($roles);
     }
