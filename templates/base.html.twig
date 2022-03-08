@@ -27,8 +27,8 @@
     </head>
 
 <!-- HEADER  -->
-    <body>
-    <header class="app-header">
+    <body id="main">
+    <header id="header">
         <div class="header">
             <img class="header__title" src={{ asset('assets/image/logo.png') }} alt="title" />
         
@@ -42,13 +42,13 @@
         <nav class="navbar">
             <ul class="navbar__links justify-content-center">
             <li class="navbar__item">
-                <a class="navbar__link" href="#">Accueil</a>
+                <a class="navbar__link" href="{{ path('app_back_index') }}">Accueil</a>
             </li>
             <li class="navbar__item">
-                <a class="navbar__link" href="#">Associations</a>
+                <a class="navbar__link" href="{{ path('app_back_user_asso') }}">Associations</a>
             </li>
             <li class="navbar__item">
-                <a class="navbar__link" href="#">Particuliers</a>
+                <a class="navbar__link" href="{{ path('app_back_user_particular') }}">Particuliers</a>
             </li>
             <li class="navbar__item">
                 <a class="navbar__link" href="#">Espèces</a>
@@ -56,16 +56,18 @@
             </ul>
         </nav>
     </header>
-
+<div id ="container">
 <!-- BODY  -->
-        {% block body %}{% endblock %}
-
-
+    {% block body %}{% endblock %}
+</div>
 <!-- FOOTER  -->
-        <footer class ="footer">
-            <div class="footer__links">
-                <p>A Pet 4 Life 2022</p>
-            </div>
-        </footer>
+    <footer class ="footer">
+        <div class="footer__links">
+            <p>A Pet 4 Life 2022</p>
+        </div>
+    </footer>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+        crossorigin="anonymous"></script>
     </body>
 </html>
