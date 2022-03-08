@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9efe28955d4ce54503912f20c9e8a77d",
+    "content-hash": "b10cfec738065411d6fa84a56b8ca7f9",
     "packages": [
         {
             "name": "barbieswimcrew/zip-code-validator",
