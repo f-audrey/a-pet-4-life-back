@@ -39,6 +39,25 @@ class UserRepository extends ServiceEntityRepository
         return $resultats;
     }
 
+        /** 
+    * @return User[] Renvoie un tableau des objets utilisateurs de type 'Association'
+    */
+    public function findAllByParticular()
+    {
+
+        $entityManager = $this->getEntityManager();
+
+        $request = $entityManager->createQuery(
+            "SELECT u 
+            FROM App\Entity\User u
+            WHERE u.type = 'Particular'"
+        );
+
+        $resultats = $request->getResult();
+
+        return $resultats;
+    }
+
     /** 
     * @return User[] Renvoie un tableau des objets utilisateurs de type 'Association'
     */

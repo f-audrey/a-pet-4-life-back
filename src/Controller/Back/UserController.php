@@ -17,12 +17,22 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/", name="app_back_user_index", methods={"GET"})
+     * @Route("/association", name="app_back_user_asso", methods={"GET"})
      */
-    public function index(UserRepository $userRepository): Response
+    public function association(UserRepository $userRepository): Response
     {
-        return $this->render('back/user/index.html.twig', [
-            'users' => $userRepository->findAll(),
+        return $this->render('back/user/asso.html.twig', [
+            'users' => $userRepository->findAllByAssociation(),
+        ]);
+    }
+
+        /**
+     * @Route("/particulier", name="app_back_user_particular", methods={"GET"})
+     */
+    public function particular(UserRepository $userRepository): Response
+    {
+        return $this->render('back/user/particular.html.twig', [
+            'users' => $userRepository->findAllByParticular(),
         ]);
     }
 
@@ -49,11 +59,21 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="app_back_user_show", methods={"GET"})
+     * @Route("/asso/{id}", name="app_back_user_show_asso", methods={"GET"})
      */
-    public function show(User $user): Response
+    public function showUser(User $user): Response
     {
-        return $this->render('back/user/show.html.twig', [
+        return $this->render('back/user/show-asso.html.twig', [
+            'user' => $user,
+        ]);
+    }
+
+        /**
+     * @Route("/part/{id}", name="app_back_user_show_part", methods={"GET"})
+     */
+    public function showPart(User $user): Response
+    {
+        return $this->render('back/user/show-part.html.twig', [
             'user' => $user,
         ]);
     }
