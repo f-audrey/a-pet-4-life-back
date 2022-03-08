@@ -21,6 +21,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"list_associations"})
      * @Groups({"association"})
      * @Groups({"search"})
      */
@@ -63,6 +64,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", nullable=true)
+     * @Groups({"list_associations"})
      * @Groups({"association"})
      * @Groups({"user"})
      * @Groups({"search"})
@@ -71,6 +73,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Groups({"list_associations"})
      * @Groups({"association"})
      * @Groups({"user"})
      * @Groups({"animal"})
@@ -90,6 +93,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"list_associations"})
      * @Groups({"association"})
      * @Groups({"user"})
      * @Groups({"search"})
@@ -99,6 +103,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups({"list_associations"})
      * @Groups({"association"})
      * @Groups({"user"})
      * @Groups({"search"})
@@ -138,6 +143,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", nullable=true)
+     * @Groups({"list_associations"})
      * @Groups({"association"})
      * @Groups({"user"})
      * @Groups({"search"})
@@ -172,6 +178,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"list_associations"})
      * @Groups({"association"})
      * @Groups({"user"})
      * @Groups({"search"})
@@ -210,6 +217,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\ManyToMany(targetEntity=Species::class, inversedBy="users")
+     * @Groups({"list_associations"})
      * @Groups({"association"})
      * @Groups({"search"})
      */
