@@ -23,7 +23,7 @@ private $data = [
     "category_name" => "Espèces",
     "picture" => "espèces.png",
     "description" => "Pour ajouter, modifer ou supprimer les espèces.",
-    "path" => "{{ path('app_back_particular') }}",
+    "path" => "{{ path('app_all_species') }}",
 ],
 ];
 
