@@ -32,6 +32,12 @@ text-align:center;
 
 #container h1{
   font-size: 50px;
+  padding-bottom: 10px;
+}
+
+form {
+  margin: 0 500px;
+  text-align: left;
 }
 
 /* ================ HEADER ================ */
