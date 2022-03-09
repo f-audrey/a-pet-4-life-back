@@ -28,7 +28,7 @@ class SpeciesRepository extends ServiceEntityRepository
         $entityManager = $this->getEntityManager();
 
         $request = $entityManager->createQuery(
-            "SELECT s.name
+            "SELECT s.id, s.name
             FROM App\Entity\Species s"
         );
 

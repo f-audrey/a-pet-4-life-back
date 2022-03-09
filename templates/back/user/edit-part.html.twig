@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit User{% endblock %}
+
+{% block body %}
+    <h1>Modifier l'utilisateur</h1>
+
+    {{ include('back/user/_form-part.html.twig', {'button_label': 'Mettre à jour'}) }}
+
+    <a href="{{ path('app_back_particular') }}" class="btn btn-profil">Retour à la liste</a>
+
+    {{ include('back/user/_delete_form-part.html.twig') }}
+{% endblock %}

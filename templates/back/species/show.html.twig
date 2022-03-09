@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Species{% endblock %}
+
+{% block body %}
+    <h1>{{ species.name }}</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ species.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ species.name }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="button_show">
+
+        <a href="{{ path('app_all_species') }}" class="btn btn-profil"> Retour à la liste</a>
+
+        <a href="{{ path('app_species_edit', {'id': species.id}) }}" class="btn btn-edit">Editer</a>
+
+        {{ include('back/species/_delete_form.html.twig') }}
+        
+    </div>
+{% endblock %}

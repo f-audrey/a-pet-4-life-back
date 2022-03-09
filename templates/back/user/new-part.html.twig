@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New association{% endblock %}
+
+{% block body %}
+    <h1>Creation d'un nouvel utilisateur</h1>
+
+    {{ include('back/user/_form-part.html.twig') }}
+
+    <a href="{{ path('app_back_particular') }}" class="btn btn-profil">Retour à la liste</a>
+{% endblock %}
