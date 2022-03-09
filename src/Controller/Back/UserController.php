@@ -127,35 +127,68 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="app_back_user_edit", methods={"GET", "POST"})
+     * @Route("/{id}/edit/asso", name="app_back_asso_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response
+    public function editAsso(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(AssoType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_back_user_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_back_asso', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('back/user/edit.html.twig', [
+        return $this->renderForm('back/user/edit-asso.html.twig', [
             'user' => $user,
             'form' => $form,
         ]);
     }
 
     /**
-     * @Route("/{id}", name="app_back_user_delete", methods={"POST"})
+     * @Route("/{id}/edit/particulier", name="app_back_part_edit", methods={"GET", "POST"})
      */
-    public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
+    public function editPart(Request $request, User $user, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(PartType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_back_particular', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('back/user/edit-part.html.twig', [
+            'user' => $user,
+            'form' => $form,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/asso", name="app_back_asso_delete", methods={"POST"})
+     */
+    public function deleteAsso(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
             $entityManager->remove($user);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_back_user_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_back_asso', [], Response::HTTP_SEE_OTHER);
+    }
+
+    /**
+     * @Route("/{id}/particulier", name="app_back_part_delete", methods={"POST"})
+     */
+    public function deletePart(Request $request, User $user, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($user);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('app_back_particular', [], Response::HTTP_SEE_OTHER);
     }
 }

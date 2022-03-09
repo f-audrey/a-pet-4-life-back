@@ -8,27 +8,23 @@
     <table class="table">
         <tbody>
             <tr>
-                <th>Siret</th>
-                <td>{{ user.siret }}</td>
-            </tr>
-            <tr>
                 <th>Mail</th>
                 <td>{{ user.mail }}</td>
             </tr>
             <tr>
-                <th>Department</th>
+                <th>Departement</th>
                 <td>{{ user.department }}</td>
             </tr>
             <tr>
-                <th>Phone_number</th>
+                <th>Numero de téléphone</th>
                 <td>{{ user.phoneNumber }}</td>
             </tr>
             <tr>
-                <th>Status</th>
+                <th>Statue</th>
                 <td>{{ user.status ? 'Yes' : 'No' }}</td>
             </tr>
             <tr>
-                <th>Picture</th>
+                <th>Photo</th>
                 <td>{{ user.picture }}</td>
             </tr>
             <tr>
@@ -38,9 +34,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_back_particular') }}" class="btn btn-profil">back to list</a>
+    <a href="{{ path('app_back_particular') }}" class="btn btn-profil">Retour à la liste</a>
 
-    <a href="{{ path('app_back_user_edit', {'id': user.id}) }}" class="btn btn-edit">edit</a>
+    <a href="{{ path('app_back_part_edit', {'id': user.id}) }}" class="btn btn-edit">Editer</a>
 
-    {{ include('back/user/_delete_form.html.twig') }}
+    {{ include('back/user/_delete_form-part.html.twig') }}
 {% endblock %}
