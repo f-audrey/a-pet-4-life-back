@@ -85,6 +85,14 @@ class ApiUserController extends AbstractController
             $myJsonErrors = new JsonError(Response::HTTP_UNPROCESSABLE_ENTITY, "Des erreurs de validation ont été trouvés");
             $myJsonErrors->setValidationErrors($errors);
         }
+
+        if($newUser->getType() === 'Association'){
+            $newUser->setRoles(['ROLE_ASSO']);
+        } elseif ($newUser->getType() === 'Particular' || $newUser->getType() === 'Particulier') {
+            $newUser->setRoles(['ROLE_USER']);
+        } else if ($newUser->getType() === 'Administrateur') {
+            $newUser->setRoles(['ROLE_ADMIN']);
+        }
         
         $userHasher = $hasher->hashPassword($newUser, $newUser->getPassword());
         $newUser->setPassword($userHasher);
