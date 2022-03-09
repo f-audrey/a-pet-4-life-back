@@ -1,5 +1,5 @@
 :root {
-  --headerHeight: 10rem;
+  --headerHeight: 12rem;
   --footerHeight: 4rem;
 }
  
@@ -11,6 +11,7 @@
 body, html{
   height:100%;
   width: 100%;
+  font-family: 'Fredoka', sans-serif;
 }
 
 body{
@@ -20,11 +21,17 @@ text-align:center;
 #main{
   height:100%;
   margin:0 auto;
+  background-color: #EEEEEE;
 }
 
 #container{
   min-height: calc(100vh - var(--headerHeight) - var(--footerHeight));
-  margin:0 auto;
+  margin:0 20px;
+  padding-top: 30px;
+}
+
+#container h1{
+  font-size: 50px;
 }
 
 /* ================ HEADER ================ */
@@ -39,16 +46,13 @@ header {
   color: #1C658C;
   width: 100%;
   font-size: 2.2rem;
-  padding-left: 2rem;
-  padding-top: 0.4rem;
-  padding-right: 2rem;
+  padding: 1.5rem 2rem;
 }
 
 .header__title {
-  margin-top: 10px;
-  height: 70px;
+  height: 90px;
   position: absolute;
-  right: calc(50% - 120px);
+  right: calc(50% - 200px);
 }
 
 .header__logo {
@@ -102,7 +106,7 @@ header {
 }
 
 .tableau{
-  background: linear-gradient(#0098C8, #01465C);
+  background: linear-gradient(#398AB9, #1C658C);
   opacity: .80;
   color: #FFF;
 }
@@ -134,7 +138,7 @@ header {
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  padding: 0.5rem 1rem;
+  padding: 0.6rem 1rem;
   width: 100%;
   min-height: 35px;
   background: linear-gradient(#398AB9, #1C658C);
@@ -148,10 +152,11 @@ header {
   list-style: none;
   padding: 10px;
   margin: 0px;
+  font-size: 24px;
 }
 
 .navbar__link {
-  padding: 0 2rem;
+  padding: 0 3rem;
   color:inherit;
   text-decoration: none;
 }
@@ -169,6 +174,29 @@ header {
   transition-duration: 350ms;
 }
 
+
+/* ================ ACCUEIL ================ */
+
+.card-img-top {
+  padding: 20px 0;
+  max-width : 30%;
+  height : auto;
+  }
+
+.card {
+  display: flex;
+  align-items: center;
+}
+
+.card-group{
+  display: flex;
+  justify-content: center;
+}
+
+.card p{
+  font-size: 20px;
+}
+  
   /* ================ FOOTER ================ */
 
 .footer {
@@ -187,4 +215,5 @@ header {
 
 .footer p {
 margin: 0px;
+font-size: 20px;
 }

@@ -2,22 +2,21 @@
 
 {% block body %}
 
-  <h1>Bienvenue sur le Back Office !</h1>
+  <h1 class = "title">Bienvenue sur le Back Office !</h1>
 
     <div class="card-group">
     {% for data in datas %}
-    <tr>
+    <div class ="col-5 m-2">
       <div class="card">
         <img src="{{ asset('assets/image/' ~data.picture) }}" class="card-img-top" alt="...">
         <div class="card-body">
-          <h5 class="card-title">{{ data.category_name }}</h5>
+          <h2 class="card-title">{{ data.category_name }}</h2>
           <p class="card-text">{{ data.description }}</p>
-          <a class="navbar__link" href="{{ path('app_back_user_asso') }}"><button type="button" class="btn btn-info">Suivant</button></a>
-        </div>
-        <div class="card-footer">
-          <small class="text-muted">Last updated 3 mins ago</small>
+          <a class="navbar__link" href="{{ data.path }}"><button type="button" class="btn btn-info">Suivant</button></a>
         </div>
       </div>
-    </tr>
+    </div>
     {% endfor %}
+    </div>
+
 {% endblock %}
