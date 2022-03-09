@@ -9,21 +9,21 @@ private $data = [
         "category_name" => "Associations",
         "picture" => "associations.png",
         "description" => "Pour ajouter, modifer ou supprimer des associations.",
-        "path" => "{{ path('app_back_asso') }}",
+        "path" => "/back/user/associations",
     ],
 
     [
       "category_name" => "Particuliers",
       "picture" => "particuliers.png",
       "description" => "Pour ajouter, modifer ou supprimer les particuliers.",
-      "path" => "{{ path('app_back_particular') }}",
+      "path" => "/back/user/particuliers",
   ],
 
   [
     "category_name" => "Espèces",
     "picture" => "espèces.png",
     "description" => "Pour ajouter, modifer ou supprimer les espèces.",
-    "path" => "{{ path('app_all_species') }}",
+    "path" => "/back/species",
 ],
 ];
 
