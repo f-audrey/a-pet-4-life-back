@@ -62,7 +62,7 @@ class UserController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_back_user_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_back_asso', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('back/user/new-asso.html.twig', [
@@ -82,9 +82,6 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $slug = $slugger->slugify($user->getName());
-            $user->setSlug($slug);
-
             $user->setType('Particular');
             if($user->getType() === 'Association'){
                 $user->setRoles(['ROLE_ASSO']);
@@ -100,7 +97,7 @@ class UserController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_back_user_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_back_particular', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('back/user/new-part.html.twig', [
