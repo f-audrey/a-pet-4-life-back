@@ -11,6 +11,10 @@
 
         <!-- Our custom CSS -->
         <link rel="stylesheet" href="{{ asset('assets/css/back.css') }}">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&family=Fredoka:wght@300;400;500&display=swap" rel="stylesheet">
         
         <link rel="shortcut icon" href="{{ asset('assets/favicon.ico') }}" type="image/x-icon">
         
@@ -45,10 +49,10 @@
                 <a class="navbar__link" href="{{ path('app_back_index') }}">Accueil</a>
             </li>
             <li class="navbar__item">
-                <a class="navbar__link" href="{{ path('app_back_user_asso') }}">Associations</a>
+                <a class="navbar__link" href="{{ path('app_back_asso') }}">Associations</a>
             </li>
             <li class="navbar__item">
-                <a class="navbar__link" href="{{ path('app_back_user_particular') }}">Particuliers</a>
+                <a class="navbar__link" href="{{ path('app_back_particular') }}">Particuliers</a>
             </li>
             <li class="navbar__item">
                 <a class="navbar__link" href="#">Espèces</a>

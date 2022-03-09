@@ -3,12 +3,16 @@
 namespace App\Controller\Back;
 
 use App\Entity\User;
+use App\Form\AssoType;
+use App\Form\PartType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use App\Service\MySlugger;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -17,7 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/association", name="app_back_user_asso", methods={"GET"})
+     * @Route("/associations", name="app_back_asso", methods={"GET"})
      */
     public function association(UserRepository $userRepository): Response
     {
@@ -27,7 +31,7 @@ class UserController extends AbstractController
     }
 
         /**
-     * @Route("/particulier", name="app_back_user_particular", methods={"GET"})
+     * @Route("/particuliers", name="app_back_particular", methods={"GET"})
      */
     public function particular(UserRepository $userRepository): Response
     {
@@ -37,22 +41,69 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="app_back_user_new", methods={"GET", "POST"})
+     * @Route("/new/asso", name="app_back_asso_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function newAsso(Request $request, EntityManagerInterface $entityManager, MySlugger $slugger, UserPasswordHasherInterface $hasher): Response
     {
         $user = new User();
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(AssoType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $slug = $slugger->slugify($user->getName());
+            $user->setSlug($slug);
+
+            $user->setType('Association');
+
+            $userHasher = $hasher->hashPassword($user, $user->getPassword());
+            $user->setPassword($userHasher);
+
             $entityManager->persist($user);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_back_user_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('back/user/new.html.twig', [
+        return $this->renderForm('back/user/new-asso.html.twig', [
+            'user' => $user,
+            'form' => $form,
+        ]);
+    }
+
+        /**
+     * @Route("/new/particulier", name="app_back_part_new", methods={"GET", "POST"})
+     */
+    public function newPart(Request $request, EntityManagerInterface $entityManager, MySlugger $slugger, UserPasswordHasherInterface $hasher): Response
+    {
+        $user = new User();
+        $form = $this->createForm(PartType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $slug = $slugger->slugify($user->getName());
+            $user->setSlug($slug);
+
+            $user->setType('Particular');
+            if($user->getType() === 'Association'){
+                $user->setRoles(['ROLE_ASSO']);
+            } elseif ($user->getType() === 'Particular' || $user->getType() === 'Particulier') {
+                $user->setRoles(['ROLE_USER']);
+            } else if ($user->getType() === 'Administrateur') {
+                $user->setRoles(['ROLE_ADMIN']);
+            }
+
+            $userHasher = $hasher->hashPassword($user, $user->getPassword());
+            $user->setPassword($userHasher);
+
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_back_user_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('back/user/new-part.html.twig', [
             'user' => $user,
             'form' => $form,
         ]);
