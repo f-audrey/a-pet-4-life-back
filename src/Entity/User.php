@@ -42,22 +42,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups({"search"})
      * @Groups({"list_animal"})
      * @Groups({"animal"})
-     * @Assert\NotBlank
-     * @Assert\Unique
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
      * @Groups({"user"})
-     * @Assert\NotBlank
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
      * @Groups({"user"})
-     * @Assert\NotBlank
      */
     private $lastname;
 
@@ -76,7 +72,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups({"animal"})
      * @Groups({"search"})
      * @Assert\NotBlank
-     * @Assert\Unique
      */
     private $mail;
 
@@ -93,7 +88,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups({"association"})
      * @Groups({"user"})
      * @Groups({"search"})
-     * @Assert\NotBlank
      */
     private $adress;
 
@@ -102,7 +96,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups({"association"})
      * @Groups({"user"})
      * @Groups({"search"})
-     * @Assert\NotBlank
      * @ZipCode(iso="FR")
      */
     private $zipcode;
@@ -113,7 +106,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups({"association"})
      * @Groups({"user"})
      * @Groups({"search"})
-     * @Assert\NotBlank
      */
     private $city;
 
@@ -123,6 +115,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups({"association"})
      * @Groups({"user"})
      * @Groups({"search"})
+     * @Assert\NotBlank
      */
     private $department;
 
@@ -132,7 +125,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups({"association"})
      * @Groups({"user"})
      * @Groups({"search"})
-     * @Assert\NotBlank
      */
     private $region;
 
@@ -141,7 +133,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups({"association"})
      * @Groups({"user"})
      * @Groups({"search"})
-     * @Assert\NotBlank
      */
     private $phone_number;
 
@@ -151,7 +142,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups({"association"})
      * @Groups({"user"})
      * @Groups({"search"})
-     * @Assert\NotBlank
      */
     private $description;
 
@@ -550,9 +540,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-        if ($this->type = 'Association'){
+        if ($this->type === 'Association'){
             $roles[] = 'ROLE_ASSO';
+        } elseif ($this->type === 'Particular') {
+            $roles[] = 'ROLE_USER';
+        } else if ($this->type === 'Administrateur') {
+            $role[] = 'ROLE_ADMIN';
         }
 
         return array_unique($roles);
