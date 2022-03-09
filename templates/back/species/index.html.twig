@@ -20,14 +20,11 @@
                 <td>{{ species.id }}</td>
                 <td>{{ species.name }}</td>
                 <td>
-                    <a href="{{ path('app_species_show', {'id': species.id}) }}" class="btn btn-profil">show</a>
-                    <a href="{{ path('app_species_edit', {'id': species.id}) }}" class="btn btn-edit">edit</a>
+                    <a href="{{ path('app_species_show', {'id': species.id}) }}" class="btn btn-profil">Voir</a>
+                    <a href="{{ path('app_species_edit', {'id': species.id}) }}" class="btn btn-edit">Editer</a>
                 </td>
             </tr>
         {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
         {% endfor %}
         </tbody>
     </table>
