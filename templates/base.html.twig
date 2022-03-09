@@ -34,7 +34,7 @@
     <body id="main">
     <header id="header">
         <div class="header">
-            <img class="header__title" src={{ asset('assets/image/logo.png') }} alt="title" />
+            <a class="navbar__link" href="{{ path('app_back_index') }}"><img class="header__title" src={{ asset('assets/image/logo.png') }} alt="title" /></a>
         
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                 <button type="button" class="btn btn-lg btn-profil">Profil</button>
@@ -55,7 +55,7 @@
                 <a class="navbar__link" href="{{ path('app_back_particular') }}">Particuliers</a>
             </li>
             <li class="navbar__item">
-                <a class="navbar__link" href="#">Espèces</a>
+                <a class="navbar__link" href="{{ path('app_all_species') }}">Espèces</a>
             </li>
             </ul>
         </nav>
