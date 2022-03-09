@@ -26,8 +26,8 @@ class AssoType extends AbstractType
         $builder
             /* ->add('type') */
             ->add('name', TextType::class, ['label' => 'Nom de l\'association'])
-            ->add('siret', IntegerType::class, [
-                'constraints' => [new Length(['min' => 9, 'max' => 9])]
+            ->add('siret', TextType::class, [
+                'constraints' => [new Length(['min' => 17, 'max' => 17])]
                 ])
             ->add('mail', EmailType::class, ['label' => 'E-Mail'])
             ->add('password', PasswordType::class, ['label' => 'Mot de passe'])
