@@ -37,8 +37,14 @@
             <a class="navbar__link" href="{{ path('app_back_index') }}"><img class="header__title" src={{ asset('assets/image/logo.png') }} alt="title" /></a>
         
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button type="button" class="btn btn-lg btn-profil">Profil</button>
-                <button type="button" class="btn btn-lg btn-deco">Deconnexion</button>
+
+            {% if app.user == null %}
+                <a href="{{ path('app_back_login') }}" type="button" class="btn btn-lg btn-profil">Connexion</a>
+            {% else %}
+                <a href="#" type="button" class="btn btn-lg btn-profil">Profil</a>
+                <a href="{{ path('app_back_logout') }}" type="button" class="btn btn-lg btn-deco">Deconnexion</a>
+            {% endif %}
+
             </div>
         </div>
         
