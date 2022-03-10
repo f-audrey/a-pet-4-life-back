@@ -6,7 +6,12 @@
     <h1>Modifier l'espèce</h1>
 
     {{ include('back/species/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
-    {{ include('back/species/_delete_form.html.twig') }}
 
-    <a href="{{ path('app_all_species') }}" class="btn btn-profil">Retour à la liste</a>
+    <div class = "button_edit">    
+        
+        <a href="{{ path('app_all_species') }}" class="btn btn-profil">Retour à la liste</a>
+
+        {{ include('back/species/_delete_form.html.twig') }}
+
+    </div>
 {% endblock %}

@@ -34,9 +34,11 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_back_particular') }}" class="btn btn-profil">Retour à la liste</a>
+    <div class = "button_show">
+        <a href="{{ path('app_back_particular') }}" class="btn btn-profil">Retour à la liste</a>
 
-    <a href="{{ path('app_back_part_edit', {'id': user.id}) }}" class="btn btn-edit">Editer</a>
+        <a href="{{ path('app_back_part_edit', {'id': user.id}) }}" class="btn btn-edit">Editer</a>
 
-    {{ include('back/user/_delete_form-part.html.twig') }}
+        {{ include('back/user/_delete_form-part.html.twig') }}
+    </div>
 {% endblock %}

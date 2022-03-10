@@ -135,7 +135,21 @@ header {
   padding:5px;
 }
 
+.button_show,
+.button_edit{
+  display: flex;
+  justify-content: center;
+}
 
+.button_show a,
+.button_edit a{
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.form_delete{
+  margin: 0px;
+}
 
 /* ------------------------------------------ */
 
