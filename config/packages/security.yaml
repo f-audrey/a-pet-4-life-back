@@ -40,6 +40,11 @@ security:
         main:
             lazy: true
             provider: app_user_provider
+            custom_authenticator: App\Security\LoginAuthentificationAuthenticator
+            logout:
+                path: app_back_logout
+                # where to redirect after logout
+                target: app_back_login
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -52,6 +57,10 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+        # Routes BACK
+        - { path: ^/back/login, roles: PUBLIC_ACCESS }
+        - { path: ^/back, roles: ROLE_ADMIN }
+
         # Routes API :
         - { path: ^/api/login, roles: PUBLIC_ACCESS }
         - { path: ^/api, roles: PUBLIC_ACCESS }
