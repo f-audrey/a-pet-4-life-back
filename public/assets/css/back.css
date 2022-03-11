@@ -157,6 +157,11 @@ table.table_show {
   font-size: 20px;
 }
 
+.connexion {
+  display: flex;
+  justify-content: center;
+}
+
 /* ------------------------------------------ */
 
 /* ================ NAV ================ */
