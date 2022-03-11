@@ -173,9 +173,15 @@ class ApiUserController extends AbstractController
         }
 
         $doctrine->persist($user);
-        //dd($DataToUpdate);
-        $doctrine->flush();
 
+        try {
+            
+            $doctrine->flush();
+        } 
+        catch (UniqueConstraintViolationException $e) {
+            return new JsonResponse("L'adresse mail existe déjà", Response::HTTP_CONFLICT);
+            }
+            
         return $this->json(
             // les données à transformer en JSON
             $user,
