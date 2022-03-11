@@ -5,13 +5,20 @@
 {% block body %}
     <h1>Modifier l'espèce</h1>
 
-    {{ include('back/species/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
 
-    <div class = "button_edit">    
-        
-        <a href="{{ path('app_all_species') }}" class="btn btn-profil">Retour à la liste</a>
+        <div class = "button_edit">    
+
+            <button class="btn btn-edit">{{ button_label|default('Sauvegarder') }}</button>
+
+
+    {{ form_end(form) }}
 
         {{ include('back/species/_delete_form.html.twig') }}
 
-    </div>
+            <button class="btn btn-profil"><a href="{{ path('app_all_species') }}"> Retour à la liste</a></button>
+
+        </div>
+
 {% endblock %}

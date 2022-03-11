@@ -3,15 +3,21 @@
 {% block title %}Edit User{% endblock %}
 
 {% block body %}
-    <h1>Modifier l'utilisateur</h1>
+    <h1>Modifier une association</h1>
 
-    {{ include('back/user/_form-asso.html.twig', {'button_label': 'Mettre à jour'}) }}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
 
-    <div class = "button_edit"> 
+        <div class = "button_edit">
 
-        <a href="{{ path('app_back_asso') }}" class="btn btn-profil">Retour à la liste</a>
+            <button class="btn btn-edit">{{ button_label|default('Sauvegarder') }}</button>
 
-        {{ include('back/user/_delete_form-asso.html.twig') }}
+    {{ form_end(form) }}
 
-    </div>
+        {{ include('back/user/_delete_form-asso.html.twig') }}   
+
+            <button class="btn btn-profil"><a href="{{ path('app_back_asso') }}"> Retour à la liste</a></button>
+
+        </div>
+
 {% endblock %}

@@ -2,7 +2,7 @@
   --headerHeight: 12rem;
   --footerHeight: 4rem;
 }
- 
+
 *{
   margin:0;
   padding:0;
@@ -130,21 +130,39 @@ header {
   color: #233E8B;
 }
 
-.d-grid{
-  margin:10px;
-  padding:5px;
-}
-
+.button_new,
 .button_show,
 .button_edit{
   display: flex;
   justify-content: center;
 }
 
+.button_new a,
 .button_show a,
 .button_edit a{
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+  color: #FFF;
+  text-decoration: none;
+}
+
+.button_show button,
+.button_new button,
+.button_edit button{
   margin-right: 10px;
   margin-bottom: 10px;
+}
+
+.button_new a:hover,
+.button_edit a:hover{
+  color: #233E8B;
+}
+
+
+.d-grid{
+  margin:10px;
+  padding:5px;
 }
 
 .form_delete{
