@@ -15,14 +15,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-use Symfony\Component\String\Slugger\SluggerInterface;
 use App\Service\MySlugger;
-use App\Models\Search;
-use Symfony\Component\HttpClient\HttpClient;
-use Symfony\Component\HttpKernel\EventListener\ResponseListener;
-use Symfony\Component\HttpKernel\HttpClientKernel;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 
 /**
      * @Route("/api/")
@@ -79,6 +74,7 @@ class ApiUserController extends AbstractController
         catch (Exception $e) {
         return new JsonResponse("JSON invalide", Response::HTTP_UNPROCESSABLE_ENTITY);
         }
+        
         $errors = $validator->validate($newUser);
         if (count($errors) > 0) {
 
@@ -101,7 +97,14 @@ class ApiUserController extends AbstractController
         $newUser->setSlug($slug);
 
         $doctrine->persist($newUser);
-        $doctrine->flush();
+
+        try {
+            
+            $doctrine->flush();
+        } 
+        catch (UniqueConstraintViolationException $e) {
+            return new JsonResponse("L'adresse mail existe déjà", Response::HTTP_CONFLICT);
+            }
 
         return $this->json(
             // les données à transformer en JSON
