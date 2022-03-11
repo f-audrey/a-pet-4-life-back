@@ -23,4 +23,12 @@ class MainController extends AbstractController
             'datas' => $data->getAllData(),
         ]);
     }
+
+    /**
+     * @Route("/profile", name="app_back_profile", methods={"GET"})
+     */
+    public function profile(): Response
+    {
+        return $this->render('back/profile.html.twig');
+    } 
 }

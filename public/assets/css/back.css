@@ -151,6 +151,14 @@ header {
   margin: 0px;
 }
 
+table.table_show {
+  display: flex;
+  justify-content: center;
+}
+table.table_show > th{
+  text-align: left;
+}
+
 /* ------------------------------------------ */
 
 /* ================ NAV ================ */

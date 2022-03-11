@@ -41,7 +41,7 @@
             {% if app.user == null %}
                 <a href="{{ path('app_back_login') }}" type="button" class="btn btn-lg btn-profil">Connexion</a>
             {% else %}
-                <a href="#" type="button" class="btn btn-lg btn-profil">Profil</a>
+                <a href="{{ path('app_back_profile') }}" type="button" class="btn btn-lg btn-profil">Profil</a>
                 <a href="{{ path('app_back_logout') }}" type="button" class="btn btn-lg btn-deco">Deconnexion</a>
             {% endif %}
 
