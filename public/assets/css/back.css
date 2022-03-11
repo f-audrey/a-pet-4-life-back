@@ -154,9 +154,7 @@ header {
 table.table_show {
   display: flex;
   justify-content: center;
-}
-table.table_show > th{
-  text-align: left;
+  font-size: 20px;
 }
 
 /* ------------------------------------------ */
