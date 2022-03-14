@@ -244,8 +244,7 @@ td {
 
 .card-img-top {
   padding: 20px 0;
-  max-width : 30%;
-  height : auto;
+  max-width : 60%;
   }
 
 .card {
@@ -261,7 +260,12 @@ td {
 .card p{
   font-size: 20px;
 }
-  
+
+.col-5.m-2:nth-child(1) img,
+.col-5.m-2:nth-child(2) img {
+  height: 20vh;
+}
+
   /* ================ FOOTER ================ */
 
 .footer {
