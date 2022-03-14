@@ -87,6 +87,7 @@ class UserController extends AbstractController
                 $user->setRoles(['ROLE_ASSO']);
             } elseif ($user->getType() === 'Particular' || $user->getType() === 'Particulier') {
                 $user->setRoles(['ROLE_USER']);
+                $user->setPicture('https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png');
             } else if ($user->getType() === 'Administrateur') {
                 $user->setRoles(['ROLE_ADMIN']);
             }

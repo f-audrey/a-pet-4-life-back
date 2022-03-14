@@ -86,6 +86,7 @@ class ApiUserController extends AbstractController
             $newUser->setRoles(['ROLE_ASSO']);
         } elseif ($newUser->getType() === 'Particular' || $newUser->getType() === 'Particulier') {
             $newUser->setRoles(['ROLE_USER']);
+            $newUser->setPicture('https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png');
         } else if ($newUser->getType() === 'Administrateur') {
             $newUser->setRoles(['ROLE_ADMIN']);
         }

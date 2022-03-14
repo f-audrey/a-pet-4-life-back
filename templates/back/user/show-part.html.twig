@@ -5,6 +5,11 @@
 {% block body %}
 
     <h1>{{ user.firstname}} {{ user.lastname }}</h1>
+
+    <div class="pictureContainer"> 
+    <img src="{{ user.picture }}" class="picture"/>
+    </div>
+    
     <table class="table table_show">
         <tbody>
             <tr>
@@ -20,12 +25,8 @@
                 <td>{{ user.phoneNumber }}</td>
             </tr>
             <tr>
-                <th>Statue</th>
+                <th>Statut</th>
                 <td>{{ user.status ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>Photo</th>
-                <td>{{ user.picture }}</td>
             </tr>
             <tr>
                 <th>Roles</th>

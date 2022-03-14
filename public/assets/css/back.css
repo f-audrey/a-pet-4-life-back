@@ -180,6 +180,16 @@ table.table_show {
   justify-content: center;
 }
 
+.picture {
+  width: 10rem;
+  margin: 50px;
+  border-radius: 50%;
+  border: 0px;
+  /* box-shadow: 0px 0px 70px 0px rgb(0 0 0 / 75%); */
+  -webkit-box-shadow: 0px 0px 0px 8px #000000, 0px 0px 0px 16px #4B4C4B, 0px 0px 0px 24px #828482, 0px 0px 0px 31px #B2B5B2, 0px 0px 0px 39px #DADDDA, 5px 5px 15px 5px rgba(0,0,0,0); 
+  box-shadow: 0px 0px 0px 8px #000000, 0px 0px 0px 16px #4B4C4B, 0px 0px 0px 24px #828482, 0px 0px 0px 31px #B2B5B2, 0px 0px 0px 39px #DADDDA, 5px 5px 15px 5px rgba(0,0,0,0);
+}
+
 /* ------------------------------------------ */
 
 /* ================ NAV ================ */

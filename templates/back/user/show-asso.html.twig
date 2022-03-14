@@ -6,6 +6,10 @@
 
     <h1>{{ user.name }}</h1>
 
+    <div class="pictureOfPart">
+    <img src="{{ user.picture }}" class="picture"/>
+    </div>
+
     <table class="table table_show">
         <tbody>
             <tr>
@@ -47,10 +51,6 @@
             <tr>
                 <th>Statut</th>
                 <td>{{ user.status ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>Image</th>
-                <td>{{ user.picture }}</td>
             </tr>
             <tr>
                 <th>Site Internet</th>
