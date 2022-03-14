@@ -62,9 +62,9 @@
             </tr>
             <tr>
                 <th>Espèces</th>
-                {% for species in user.species %}
-                <td>{{ species.name }}</td>
-                {% endfor %}
+                
+                <td>{% for species in user.species %}- {{ species.name }} {% endfor %}</td>
+                
             </tr>
         </tbody>
     </table>
