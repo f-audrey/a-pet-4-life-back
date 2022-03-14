@@ -154,7 +154,7 @@ class ApiUserController extends AbstractController
         /**
      * @Route("secure/user/update/{id}", name="api_user_update", methods={"PATCH"})
      */
-    public function updateUser(EntityManagerInterface $doctrine, Request $request, SerializerInterface $serializer, ValidatorInterface $validator, UserRepository $userRepo, int $id)
+    public function updateUser(UserPasswordHasherInterface $hasher, EntityManagerInterface $doctrine, Request $request, SerializerInterface $serializer, ValidatorInterface $validator, UserRepository $userRepo, int $id)
     {
         $content = $request->getContent(); // Get json from request
 
@@ -172,6 +172,9 @@ class ApiUserController extends AbstractController
             $myJsonErrors = new JsonError(Response::HTTP_UNPROCESSABLE_ENTITY, "Des erreurs de validation ont été trouvés");
             $myJsonErrors->setValidationErrors($errors);
         }
+
+        $userHasher = $hasher->hashPassword($user, $user->getPassword());
+        $user->setPassword($userHasher);
 
         $doctrine->persist($user);
 
