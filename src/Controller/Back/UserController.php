@@ -21,6 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController
 {
     /**
+     * Route qui récupère la liste de toutes les associations
      * @Route("/associations", name="app_back_asso", methods={"GET"})
      */
     public function association(UserRepository $userRepository): Response
@@ -30,7 +31,8 @@ class UserController extends AbstractController
         ]);
     }
 
-        /**
+    /**
+     * Route qui récupère la liste des particuliers
      * @Route("/particuliers", name="app_back_particular", methods={"GET"})
      */
     public function particular(UserRepository $userRepository): Response
@@ -41,6 +43,7 @@ class UserController extends AbstractController
     }
 
     /**
+     * Route qui permet de créer une association
      * @Route("/new/asso", name="app_back_asso_new", methods={"GET", "POST"})
      */
     public function newAsso(Request $request, EntityManagerInterface $entityManager, MySlugger $slugger, UserPasswordHasherInterface $hasher): Response
@@ -71,7 +74,8 @@ class UserController extends AbstractController
         ]);
     }
 
-        /**
+    /**
+     * Route qui permet de créer un particulier
      * @Route("/new/particulier", name="app_back_part_new", methods={"GET", "POST"})
      */
     public function newPart(Request $request, EntityManagerInterface $entityManager, MySlugger $slugger, UserPasswordHasherInterface $hasher): Response
@@ -82,7 +86,9 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            // Si le formulaire est envoyé et validé, je peux mettre des valeurs par défaut pour certaines propriétés avant d'envoyer les données en base de données
             $user->setType('Particular');
+
             if($user->getType() === 'Association'){
                 $user->setRoles(['ROLE_ASSO']);
             } elseif ($user->getType() === 'Particular' || $user->getType() === 'Particulier') {
@@ -95,7 +101,9 @@ class UserController extends AbstractController
             $userHasher = $hasher->hashPassword($user, $user->getPassword());
             $user->setPassword($userHasher);
 
+            // Enregistre les données du formulaire
             $entityManager->persist($user);
+            // Envoi les nouvelles informations en base de données
             $entityManager->flush();
 
             return $this->redirectToRoute('app_back_particular', [], Response::HTTP_SEE_OTHER);
@@ -108,6 +116,7 @@ class UserController extends AbstractController
     }
 
     /**
+     * Route qui récupère les informations d'une association par id
      * @Route("/asso/{id}", name="app_back_user_show_asso", methods={"GET"})
      */
     public function showUser(User $user): Response
@@ -117,7 +126,8 @@ class UserController extends AbstractController
         ]);
     }
 
-        /**
+    /**
+     * Route qui récupère les informations d'un particulier par id
      * @Route("/part/{id}", name="app_back_user_show_part", methods={"GET"})
      */
     public function showPart(User $user): Response
@@ -128,6 +138,7 @@ class UserController extends AbstractController
     }
 
     /**
+     * Route qui permet de modifier une ou plusieurs informations d'une association
      * @Route("/{id}/edit/asso", name="app_back_asso_edit", methods={"GET", "POST"})
      */
     public function editAsso(Request $request, User $user, EntityManagerInterface $entityManager): Response
@@ -148,6 +159,7 @@ class UserController extends AbstractController
     }
 
     /**
+     * Route qui permet de modifier une ou plusieurs informations d'un particulier
      * @Route("/{id}/edit/particulier", name="app_back_part_edit", methods={"GET", "POST"})
      */
     public function editPart(Request $request, User $user, EntityManagerInterface $entityManager): Response
@@ -168,6 +180,7 @@ class UserController extends AbstractController
     }
 
     /**
+     * Route qui permet de supprimer une association
      * @Route("/{id}/asso", name="app_back_asso_delete", methods={"POST"})
      */
     public function deleteAsso(Request $request, User $user, EntityManagerInterface $entityManager): Response
@@ -181,6 +194,7 @@ class UserController extends AbstractController
     }
 
     /**
+     * Route qui permet de supprimer un particulier
      * @Route("/{id}/particulier", name="app_back_part_delete", methods={"POST"})
      */
     public function deletePart(Request $request, User $user, EntityManagerInterface $entityManager): Response

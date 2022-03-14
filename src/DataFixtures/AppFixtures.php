@@ -129,6 +129,7 @@ class AppFixtures extends Fixture
             'Meet Ton Pet'
         ];
 
+        // Création des associations: on parcourt le tableau et on leur donne des informations grâce à faker et d'autres que l'on a fait à la main.
         foreach ($associations as $association) {
             $user = new User;
 
@@ -156,11 +157,13 @@ class AppFixtures extends Fixture
             $user->setMail($user->getSlug() . '@exemple.com');
             $user->setWebsite('https:://fake-' . $user->getSlug() . '.com');
 
+            // On hash le mot de passe avec un composant de symfony pour pas qu'il n'apparaisse en clair
             $password = $this->hasher->hashPassword($user, 'password');
             $user->setPassword($password);
 
             $user->setRoles(['ROLE_ASSO']);
 
+                // On donne à chaque association, un nombre random d'espèce à proposer (entre 1 et 3)
                 $allSpeciesAssocEntity = [];
                 for ($g = 1; $g <= mt_rand(1, 3); $g++) {
                     $randomSpecies = $allSpeciesEntity[mt_rand(0, count($allSpeciesEntity) - 1)];
@@ -170,10 +173,12 @@ class AppFixtures extends Fixture
 
                 /* ============== ANIMALS ==============  */
                 $allAnimalsEntity = [];
+                // On donne à chaque association un nombre random d'animal (entre 1 et 10) à proposer
                 for ($a = 1; $a <= mt_rand(1, 10); $a++) {
 
                     $animal = new Animal;
 
+                    // On pioche aléatoirement dans un fichier "provider" qu'on a fait à la main, des noms d'animaux dans une liste.
                     $animal->setName($animalProvider->randAnimal());
 
                     $sexe = rand(1, 2) == 1 ? 'Female' : 'Male';
@@ -208,6 +213,7 @@ class AppFixtures extends Fixture
             $manager->persist($user);
         }
 
+        // Création des particuliers: on crée 25 fausses données de particulier grâce à faker
         for ($i = 1; $i <= 25; $i++) {
             $user = new User;
             $randDataGeolocation = mt_rand(0, count($dataGeolocation) - 1);
@@ -232,6 +238,7 @@ class AppFixtures extends Fixture
             $manager->persist($user);
         }
 
+        // On crée un profil administrateur, pour la gestion du back-office
         $users = [
             [
                 'login' => 'admin@admin.com',
@@ -257,11 +264,13 @@ class AppFixtures extends Fixture
             $manager->persist($newUser);
         }
 
+        // les reviews ne sont pas encore faites.
         /* ============== REVIEWS ==============  */
         /* for($i = 0; $i < 100; $i ++) {
         
-    } */
+        } */
 
+        // On envoi les données créées en bdd
         $manager->flush();
     }
 }

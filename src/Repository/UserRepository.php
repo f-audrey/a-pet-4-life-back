@@ -21,7 +21,7 @@ class UserRepository extends ServiceEntityRepository
     }
 
     /** 
-    * @return User[] Renvoie un tableau des objets utilisateurs de type 'Association'
+    * @return User[] Renvoie un tableau d'objets utilisateurs de type 'Association'
     */
     public function findAllByAssociation()
     {
@@ -39,8 +39,8 @@ class UserRepository extends ServiceEntityRepository
         return $resultats;
     }
 
-        /** 
-    * @return User[] Renvoie un tableau des objets utilisateurs de type 'Association'
+    /** 
+    * @return User[] Renvoie un tableau d'objets utilisateurs de type 'Particulier'
     */
     public function findAllByParticular()
     {
@@ -59,17 +59,17 @@ class UserRepository extends ServiceEntityRepository
     }
 
     /** 
-    * @return User[] Renvoie un tableau des objets utilisateurs de type 'Association'
+    * @return User[] Renvoie un tableau d'objets d'un utilisateur via son slug et de type 'Association'
     */
     public function findOneAssociation($slug)
     {
-    $entityManager = $this->getEntityManager();
+        $entityManager = $this->getEntityManager();
 
-    $request = $entityManager->createQuery(
-        "SELECT u 
-        FROM App\Entity\User u
-        WHERE u.type = 'Association' AND u.slug = :slug");
-        $request->setParameter('slug', $slug);
+        $request = $entityManager->createQuery(
+            "SELECT u 
+            FROM App\Entity\User u
+            WHERE u.type = 'Association' AND u.slug = :slug");
+            $request->setParameter('slug', $slug);
 
         $resultats = $request->getResult(); 
 
@@ -77,6 +77,9 @@ class UserRepository extends ServiceEntityRepository
         
     }
 
+    /** 
+    * @return User[] Renvoie un tableau d'objets d'un utilisateur via sa localisation et de type 'Association'
+    */
     public function findAllBySearch($geolocation = null, $responseLocation = null, $species = null)
     {
         $entityManager = $this->getEntityManager();
@@ -93,7 +96,8 @@ class UserRepository extends ServiceEntityRepository
             FROM App\Entity\User u
             WHERE u.type = 'Association' AND u.$geolocation = :responseLocation");
 
-            $request->setParameter('responseLocation', $responseLocation);}
+            $request->setParameter('responseLocation', $responseLocation);
+        }
 
         $resultats = $request->getResult();
 

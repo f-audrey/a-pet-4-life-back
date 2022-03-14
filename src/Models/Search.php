@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+/**
+ * Permet de récupérer la requête de la recherche sur la page d'accueil
+ */
 class Search
 {
   private $geolocation;

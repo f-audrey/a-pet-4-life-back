@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class AuthenticationFailureListener
 {
     /**
+     * Message d'erreur en cas de fausses informations à l'authentification
      * @param AuthenticationFailureEvent  $event
      */
     public function onAuthenticationFailureResponse(AuthenticationFailureEvent $event)

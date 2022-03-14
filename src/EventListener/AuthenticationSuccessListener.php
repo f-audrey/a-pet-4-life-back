@@ -10,6 +10,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class AuthenticationSuccessListener
 {
     /**
+     * Permet d'envoyer des informations à l'authentification d'un utilisateur
      * @param AuthenticationSuccessEvent $event
      */
     public function onAuthenticationSuccessResponse(AuthenticationSuccessEvent $event)

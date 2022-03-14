@@ -17,6 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class SpeciesController extends AbstractController
 {
     /**
+     * Route qui permet de récupérer la liste des espèces
      * @Route("/", name="app_all_species", methods={"GET"})
      */
     public function allSpecies(SpeciesRepository $speciesRepository): Response
@@ -27,6 +28,7 @@ class SpeciesController extends AbstractController
     }
 
     /**
+     * Route qui permet de créer une espèce
      * @Route("/new", name="app_species_new", methods={"GET", "POST"})
      */
     public function new(Request $request, EntityManagerInterface $entityManager): Response
@@ -49,6 +51,7 @@ class SpeciesController extends AbstractController
     }
 
     /**
+     * Route qui permet de récupérer les informations liées à une espèce
      * @Route("/{id}", name="app_species_show", methods={"GET"})
      */
     public function show(Species $species): Response
@@ -59,6 +62,7 @@ class SpeciesController extends AbstractController
     }
 
     /**
+     * Route qui permet de modifier une espèce
      * @Route("/{id}/edit", name="app_species_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, Species $species, EntityManagerInterface $entityManager): Response
@@ -78,7 +82,7 @@ class SpeciesController extends AbstractController
         ]);
     }
 
-    /**
+    /** Route qui permet de supprimer une espèce
      * @Route("/{id}", name="app_species_delete", methods={"POST"})
      */
     public function delete(Request $request, Species $species, EntityManagerInterface $entityManager): Response

@@ -17,6 +17,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PartType extends AbstractType
 {
+    /**
+     * Propriétés et vérifications nécessaires au formulaire
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -30,6 +33,9 @@ class PartType extends AbstractType
             ;
     }
 
+    /**
+     * La class concerné par le formulaire
+     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

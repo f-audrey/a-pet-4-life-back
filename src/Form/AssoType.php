@@ -21,6 +21,9 @@ use Symfony\Component\Validator\Constraints\Positive;
 
 class AssoType extends AbstractType
 {
+    /**
+     * Propriétés et vérifications nécessaires au formulaire
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -50,6 +53,9 @@ class AssoType extends AbstractType
             ;
     }
 
+    /**
+     * La class concerné par le formulaire
+     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

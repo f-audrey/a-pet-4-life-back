@@ -4,7 +4,7 @@ namespace App\DataFixtures\Provider;
 
 class RegionProvider
 {
-    // Taleau de 25 regions pour les Fixtures.
+    // Taleau de 25 régions pour les Fixtures.
 
     private $region = [
       "Guadeloupe",

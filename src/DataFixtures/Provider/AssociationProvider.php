@@ -4,7 +4,7 @@ namespace App\DataFixtures\Provider;
 
 class AssociationProvider
 {
-    // Taleau de 25 fausses associations pour les Fixtures.
+    // Taleau de 25 fausses associations pour les fixtures.
     private $association = [
         'Ass\'O Pet',
         'Adopte un Pet',

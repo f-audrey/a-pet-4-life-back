@@ -4,7 +4,7 @@ namespace App\DataFixtures\Provider;
 
 class AnimalProvider
 {
-    // Taleau de 100 animaux pour les Fixtures.
+    // Taleau de 100 animaux pour les fixtures.
     private $animal = [
         "Data",
         "Colby",

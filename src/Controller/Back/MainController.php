@@ -15,6 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class MainController extends AbstractController
 {
     /**
+     * Route qui permet d'afficher la page d'accueil
      * @Route("/", name="app_back_index", methods={"GET"})
      */
     public function index(Data $data): Response
@@ -25,6 +26,7 @@ class MainController extends AbstractController
     }
 
     /**
+     * Route qui permet d'afficher les informations de l'utilisateur connecté
      * @Route("/profile", name="app_back_profile", methods={"GET"})
      */
     public function profile(): Response
