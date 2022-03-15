@@ -4,9 +4,11 @@ namespace App\Form;
 
 use App\Entity\Species;
 use App\Entity\User;
+use App\Service\DepartmentApi;
 use Doctrine\ORM\Mapping\Entity;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -21,11 +23,19 @@ use Symfony\Component\Validator\Constraints\Positive;
 
 class AssoType extends AbstractType
 {
+    private $department;
+
+    public function __construct(DepartmentApi $department)
+    {
+        $this->department = $department;
+    }
+
     /**
      * Propriétés et vérifications nécessaires au formulaire
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $departement = $this->department->fetch();
         $builder
             /* ->add('type') */
             ->add('name', TextType::class, ['label' => 'Nom de l\'association'])
@@ -37,7 +47,7 @@ class AssoType extends AbstractType
             ->add('adress', TextType::class, ['label' => 'Adresse'])
             ->add('zipcode', TextType::class, ['label' => 'Code postal'])
             ->add('city', TextType::class, ['label' => 'Ville'])
-            ->add('department', TextType::class, ['label' => 'Département'])
+            ->add('department', ChoiceType::class, ['label' => 'département', 'choices' => $departement])
             ->add('region', TextType::class, ['label' => 'Région'])
             ->add('phone_number', TextType::class, ['label' => 'Numero de téléphone'])
             ->add('description', TextareaType::class, ['label' => 'Description'])

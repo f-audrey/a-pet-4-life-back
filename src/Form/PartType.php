@@ -4,9 +4,11 @@ namespace App\Form;
 
 use App\Entity\Species;
 use App\Entity\User;
+use App\Service\DepartmentApi;
 use Doctrine\ORM\Mapping\Entity;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -17,6 +19,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PartType extends AbstractType
 {
+    private $department;
+
+    public function __construct(DepartmentApi $department)
+    {
+        $this->department = $department;
+    }
+
     /**
      * Propriétés et vérifications nécessaires au formulaire
      */
@@ -28,7 +37,7 @@ class PartType extends AbstractType
             ->add('lastname', TextType::class, ['label' => 'Nom de famille','attr' => ['placeholder' => 'saisissez votre nom de famille']])
             ->add('mail', EmailType::class, ['label' => 'E-Mail','attr' => ['placeholder' => 'saisissez votre e-mail']])
             ->add('password', PasswordType::class, ['label' => 'Mot de passe'])
-            ->add('department', TextType::class, ['label' => 'Département'])
+            ->add('department', ChoiceType::class, ['label' => 'département', 'choices' => $this->department->fetch()])
             ->add('phone_number', TextType::class, ['label' => 'Numero de téléphone'])
             ;
     }
