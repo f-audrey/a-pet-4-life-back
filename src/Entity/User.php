@@ -210,6 +210,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups({"list_associations"})
      * @Groups({"association"})
      * @Groups({"search"})
+     * @Groups({"user"})
      */
     private $species;
 
