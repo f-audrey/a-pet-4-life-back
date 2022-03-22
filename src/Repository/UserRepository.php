@@ -75,7 +75,7 @@ class UserRepository extends ServiceEntityRepository
             if(count($resultats) < 2 ){
                 return $resultats[0];}
                 
-        return $resultats[0];
+        return $resultats;
     }
 
     /** 
