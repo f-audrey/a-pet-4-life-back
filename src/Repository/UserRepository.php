@@ -72,9 +72,10 @@ class UserRepository extends ServiceEntityRepository
             $request->setParameter('slug', $slug);
 
         $resultats = $request->getResult(); 
-
-        return $resultats;
-        
+            if(count($resultats) < 2 ){
+                return $resultats[0];}
+                
+        return $resultats[0];
     }
 
     /** 
